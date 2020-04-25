@@ -91,7 +91,6 @@
             <version>2.3.3</version>
         </dependency>
 
-
         <!--javaMail-->
         <dependency>
             <groupId>javax.mail</groupId>
