@@ -23,7 +23,6 @@
             <scope>provided</scope>
         </dependency>
 
-
         <!--mysql驱动-->
         <dependency>
             <groupId>mysql</groupId>
