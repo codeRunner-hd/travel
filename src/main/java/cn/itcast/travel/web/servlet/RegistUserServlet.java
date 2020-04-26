@@ -28,8 +28,8 @@ public class RegistUserServlet extends HttpServlet {
         String check = request.getParameter("check");
         // 从session中获取验证码
         HttpSession session = request.getSession();
-        String checkcode_server = (String) session.getAttribute("CHECKCODE_SERVER");
-        if (!checkcode_server.equalsIgnoreCase(check)){
+        String checkcodeServer = (String) session.getAttribute("CHECKCODE_SERVER");
+        if (checkcodeServer == null || !checkcodeServer.equalsIgnoreCase(check)){
             // 验证码错误
             ResultInfo info = new ResultInfo();
             // 提示注册失败

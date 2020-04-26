@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * 用户实体类
+ * @author Admin
  */
 public class User implements Serializable {
     /**

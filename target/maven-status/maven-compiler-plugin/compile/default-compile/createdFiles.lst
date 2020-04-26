@@ -1,3 +1,4 @@
+cn\itcast\travel\web\servlet\ActiveUserServlet.class
 cn\itcast\travel\dao\UserDao.class
 cn\itcast\travel\service\UserService.class
 cn\itcast\travel\web\filter\CharchaterFilter.class

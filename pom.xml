@@ -135,7 +135,7 @@
                 <groupId>org.apache.tomcat.maven</groupId>
                 <!-- tomcat7的插件， 不同tomcat版本这个也不一样 -->
                 <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.1</version>
+                <version>2.2</version>
                 <configuration>
                     <!-- 通过maven tomcat7:run运行项目时，访问项目的端口号 -->
                     <port>80</port>

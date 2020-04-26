@@ -4,6 +4,7 @@ import java.util.UUID;
 
 /**
  * 产生UUID随机字符串工具类
+ * @author Admin
  */
 public final class UuidUtil {
 	private UuidUtil(){}

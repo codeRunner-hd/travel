@@ -7,18 +7,25 @@ import java.util.Properties;
 
 /**
  * 发邮件工具类
+ * @author Admin
  */
 public final class MailUtils {
-    private static final String USER = ""; // 发件人称号，同邮箱地址
-    private static final String PASSWORD = ""; // 如果是qq邮箱可以使户端授权码，或者登录密码
+    /**
+     * 发件人称号，同邮箱地址
+     */
+    private static final String USER = "1033952404@qq.com";
+    /**
+     * 如果是qq邮箱可以使用客户端授权码，或者登录密码
+     */
+    private static final String PASSWORD = "yeviebtfxfadbeff";
 
     /**
-     *
-     * @param to 收件人邮箱
-     * @param text 邮件正文
-     * @param title 标题
+     * 发送验证信息的邮件
+     * @param to    收件人邮箱
+     * @param text  邮件正文
+     * @param title 邮件标题
+     * @return  发送结果
      */
-    /* 发送验证信息的邮件 */
     public static boolean sendMail(String to, String text, String title){
         try {
             final Properties props = new Properties();
@@ -67,11 +74,13 @@ public final class MailUtils {
         return false;
     }
 
-    public static void main(String[] args) throws Exception { // 做测试用
-        MailUtils.sendMail("itcast_xian@163.com","你好，这是一封测试邮件，无需回复。","测试邮件");
+    /**
+     * 测试发送邮件
+     * @param args
+     * @throws Exception
+     */
+    public static void main(String[] args) throws Exception {
+        MailUtils.sendMail("test@163.com","你好，这是一封测试邮件，无需回复。","测试邮件");
         System.out.println("发送成功");
     }
-
-
-
 }

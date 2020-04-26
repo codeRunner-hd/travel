@@ -4,12 +4,25 @@ import java.io.Serializable;
 
 /**
  * 商家实体类
+ * @author Admin
  */
 public class Seller implements Serializable {
-    private int sid;//商家id
-    private String sname;//商家名称
-    private String consphone;//商家电话
-    private String address;//商家地址
+    /**
+     * 商家id
+     */
+    private int sid;
+    /**
+     * 商家名称
+     */
+    private String sname;
+    /**
+     * 商家电话
+     */
+    private String consphone;
+    /**
+     * 商家地址
+     */
+    private String address;
 
     /**
      * 无参构造方法
