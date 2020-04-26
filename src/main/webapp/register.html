@@ -120,8 +120,23 @@
 			$(function () {
 				// 当表单提交的时候，调用所有的校验方法
 				$("#registerForm").submit(function () {
+					// 1.发送数据到服务器
+					if (checkUsername() && checkPassword() && checkEmail() && checkTelephone() && checkBirthday() && checkCheck()){
+						// 校验通过，发送ajax请求，提交表单的数据 username=zhangsan$password=123456
+						$.post("registUserServlet",$(this).serialize(),function (data) {
+							// 处理服务器响应的数据 data {flag:true,errorMsg:"注册失败！"}
+							if (data.flag){
+								// 注册成功，跳转成功页面
+								location.href="register_ok.html";
+							}else{
+								// 注册失败，给errorMsg中添加提示信息
+								$("#errorMsg").html(data.errorMsg);
+							}
+						});
+					}
+					// 2.跳转页面
+					return false;
 					// 如果这个方法没有返回值或者返回为true，则表单提交，如果返回为false，则表单不提交
-					return checkUsername() && checkPassword() && checkEmail() && checkTelephone() && checkBirthday() && checkCheck();
 				});
 
 				// 当某一个组件失去焦点的时候，调用对应的校验方法
@@ -147,9 +162,9 @@
     				<p>USER REGISTER</p>
     			</div>
     			<div class="rg_form_center">
-					
+					<div id="errorMsg" style="color:red;text-align: center;"></div>
 					<!--注册表单-->
-    				<form id="registerForm" action="user_register">
+    				<form id="registerForm" action="/registUserServlet">
 						<!--提交处理请求的标识符-->
 						<input type="hidden" name="action" value="register">
     					<table style="margin-top: 25px;">
