@@ -1,10 +1,7 @@
-cn\itcast\travel\web\servlet\LoginServlet.class
+cn\itcast\travel\web\servlet\BaseServlet.class
 cn\itcast\travel\dao\UserDao.class
 cn\itcast\travel\service\UserService.class
-cn\itcast\travel\dao\impl\UserDaoImpl.class
-cn\itcast\travel\web\servlet\ExitServlet.class
-cn\itcast\travel\web\servlet\FindUserServlet.class
-cn\itcast\travel\web\servlet\ActiveUserServlet.class
 cn\itcast\travel\web\filter\CharchaterFilter.class
-cn\itcast\travel\web\servlet\RegistUserServlet.class
+cn\itcast\travel\dao\impl\UserDaoImpl.class
 cn\itcast\travel\service\impl\UserServiceImpl.class
+cn\itcast\travel\web\servlet\UserServlet.class
