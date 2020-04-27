@@ -1,20 +1,30 @@
 <!-- 头部 start -->
+<script>
+    // 获取用户名，显示到右上角
+    $(function () {
+        $.get("findUserServlet",{},function (data) {
+            // data : {uid:1,name:'李四'}
+            var msg = "欢迎回来，" + data.name;
+            $("#span_username").html(msg);
+        });
+    });
+</script>
     <header id="header">
         <div class="top_banner">
             <img src="images/top_banner.jpg" alt="">
         </div>
         <div class="shortcut">
             <!-- 未登录状态  -->
-            <div class="login_out">
+             <div class="login_out">
                 <a href="login.html">登录</a>
                 <a href="register.html">注册</a>
             </div>
             <!-- 登录状态  -->
             <div class="login">
             	
-                <span>欢迎回来，admin</span>
+                <span id="span_username"></span>
                 <a href="myfavorite.html" class="collection">我的收藏</a>
-                <a href="javascript:;">退出</a>
+                <a href="javascript:location.href='exitServlet';">退出</a>
             </div>
         </div>
         <div class="header_wrap">
