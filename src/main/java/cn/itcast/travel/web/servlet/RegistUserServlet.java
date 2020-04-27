@@ -29,6 +29,8 @@ public class RegistUserServlet extends HttpServlet {
         // 从session中获取验证码
         HttpSession session = request.getSession();
         String checkcodeServer = (String) session.getAttribute("CHECKCODE_SERVER");
+        // 校验验证码之后立马进行从session中清楚验证码，保证验证码只能使用一次
+        session.removeAttribute("CHECKCODE_SERVER");
         if (checkcodeServer == null || !checkcodeServer.equalsIgnoreCase(check)){
             // 验证码错误
             ResultInfo info = new ResultInfo();
@@ -48,8 +50,6 @@ public class RegistUserServlet extends HttpServlet {
             // 直接返回，不进行接下来的操作
             return;
         }
-        // 校验验证码之后立马进行从session中清楚验证码，保证验证码只能使用一次
-        session.removeAttribute("CHECKCODE_SERVER");
 
         // 1、获取数据
         Map<String, String[]> map = request.getParameterMap();
@@ -82,11 +82,10 @@ public class RegistUserServlet extends HttpServlet {
         // 设置content-type
         response.setContentType("application/json;charset=utf-8");
         response.getWriter().write(json);
-
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doPost(request,response);
     }
 }

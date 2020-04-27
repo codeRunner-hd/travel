@@ -15,9 +15,31 @@
       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
       <!--导入angularJS文件-->
-    <script src="js/angular.min.js"></script>
+    <!--<script src="js/angular.min.js"></script>-->
 	<!--导入jquery-->
 	<script src="js/jquery-3.3.1.js"></script>
+
+	<script>
+		$(function () {
+			// 1、给登录按钮绑定单击事件
+			$("#btn_sub").click(function () {
+				// 2、发送ajax请求，提交表单数据
+				$.post("loginServlet",$("#loginForm").serialize(),function (data) {
+					// data : {flag:false,errorMsg:''}
+					if (data.flag){
+						// 登录成功，跳转首页
+						location.href = "index.html";
+					}else{
+						// 登录失败，提示信息
+						$("#errorMsg").html(data.errorMsg);
+					}
+				});
+			});
+		});
+
+		// 3、处理响应结果
+
+	</script>
 </head>
 
 <body>
@@ -52,7 +74,7 @@
 					</script>
 			</div>
 			<div class="submit_btn">
-        				<button type="button">登录</button>
+        				<button type="button" id="btn_sub">登录</button>
         				<div class="auto_login">
         					<input type="checkbox" name="" class="checkbox">
         					<span>自动登录</span>

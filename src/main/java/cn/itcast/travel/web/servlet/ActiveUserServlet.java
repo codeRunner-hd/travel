@@ -18,11 +18,6 @@ import java.io.IOException;
 public class ActiveUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request,response);
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 1、获取激活码
         String code = request.getParameter("code");
         if (code != null){
@@ -41,5 +36,10 @@ public class ActiveUserServlet extends HttpServlet {
             response.setContentType("text/html;charset=utf-8");
             response.getWriter().write(msg);
         }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request,response);
     }
 }
