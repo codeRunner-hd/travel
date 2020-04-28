@@ -1,7 +1,0 @@
-cn\itcast\travel\web\servlet\BaseServlet.class
-cn\itcast\travel\dao\UserDao.class
-cn\itcast\travel\service\UserService.class
-cn\itcast\travel\web\filter\CharchaterFilter.class
-cn\itcast\travel\dao\impl\UserDaoImpl.class
-cn\itcast\travel\service\impl\UserServiceImpl.class
-cn\itcast\travel\web\servlet\UserServlet.class
