@@ -25,7 +25,7 @@ public class CharchaterFilter implements Filter {
         //获取请求方法
         String method = request.getMethod();
         //解决post请求中文数据乱码问题
-        if(method.equalsIgnoreCase("post")){
+        if("post".equalsIgnoreCase(method)){
             request.setCharacterEncoding("utf-8");
         }
         //处理响应乱码
