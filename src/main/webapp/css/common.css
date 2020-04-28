@@ -8,7 +8,7 @@
 /*css 初始化 */
 html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img {
     margin: 0;
-    padding: 0;  
+    padding: 0;
     box-sizing: border-box;
     font-family: '微软雅黑', serif;
 }
@@ -17,7 +17,7 @@ fieldset, img, input, button {
     border: none;
     padding: 0;
     margin: 0;
-    outline-style: none;  /*外面环绕线*/
+    outline-style: none; /*外面环绕线*/
 }
 
 ul, ol {
@@ -27,8 +27,9 @@ ul, ol {
 input {
     padding-top: 0;
     padding-bottom: 0;
-      /*字体的自动识别*/
+    /*字体的自动识别*/
 }
+
 select, input {
     vertical-align: middle;
 }
@@ -40,11 +41,13 @@ select, input, textarea {
 }
 
 textarea {
-    resize: none;  /*不可以随意拖动*/
+    resize: none; /*不可以随意拖动*/
 }
-img{
+
+img {
     display: block;
 }
+
 table {
     border-collapse: collapse; /*合并外连线*/
 }
@@ -56,8 +59,9 @@ table {
 }
 
 .clearfix {
-    *zoom: 1; /*IE/7/6*/  /*兼容IE6下的写法*/
+    *zoom: 1; /*IE/7/6*/ /*兼容IE6下的写法*/
 }
+
 a {
     text-decoration: none;
 }
@@ -86,7 +90,7 @@ h1, h2, h3, h4, h5, h6 {
     height: 50px;
 }
 
-.login_out, .login {  
+.login_out, .login {
     height: 50px;
     line-height: 36px;
     float: right;
@@ -96,14 +100,17 @@ h1, h2, h3, h4, h5, h6 {
     width: 230px;
     font-size: 12px;
 }
-.login a{
+
+.login a {
     font-size: 12px;
     color: #a1a1a1;
 }
+
 .login .collection {
     color: #ff7676;
     margin: 0 16px 0 10px;
 }
+
 .login_out a {
     color: #000;
     font-size: 12px;
@@ -219,7 +226,7 @@ h1, h2, h3, h4, h5, h6 {
     display: inline-block;
 }
 
-.nav>li>a:focus, .nav>li>a:hover{
+.nav > li > a:focus, .nav > li > a:hover {
     background: none;
 }
 
@@ -227,7 +234,7 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #ffd800;
 }
 
-.nav>li>a {   
+.nav > li > a {
     padding: 10px 15px;
 }
 
@@ -238,12 +245,13 @@ h1, h2, h3, h4, h5, h6 {
 .fl {
     float: left;
 }
+
 #footer {
     width: 100%;
     background: #3d3d3f;
 }
 
-.why_select {    
+.why_select {
     overflow: hidden;
     margin: 0 auto;
     border-bottom: solid 1px #666;
@@ -284,7 +292,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-
 .company {
     width: 100%;
     height: 38px;
@@ -304,23 +311,26 @@ h1, h2, h3, h4, h5, h6 {
 
 
 .pageNum ul li {
-  width: 40px;
-  height: 40px;
-  float: left;
-  border: 1px solid #eee;
-  margin-right: 10px;
-  text-align: center;
-  line-height: 40px;
+    width: 40px;
+    height: 40px;
+    float: left;
+    border: 1px solid #eee;
+    margin-right: 10px;
+    text-align: center;
+    line-height: 40px;
 }
+
 .pageNum ul li.curPage {
     background-color: #ffc900;
 }
+
 .pageNum ul li a {
-  width: 100%;
-  height: 100%;
-  color: #000;
-  font-size: 14px;
+    width: 100%;
+    height: 100%;
+    color: #000;
+    font-size: 14px;
 }
+
 .pageNum ul .threeword {
-  width: 75px;
+    width: 75px;
 }

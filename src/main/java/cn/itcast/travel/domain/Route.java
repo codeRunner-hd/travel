@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * 旅游线路商品实体类
+ *
  * @author Admin
  */
 public class Route implements Serializable {
@@ -72,14 +73,15 @@ public class Route implements Serializable {
     private List<RouteImg> routeImgList;
 
 
-
     /**
      * 无参构造方法
      */
-    public Route(){}
+    public Route() {
+    }
 
     /**
      * 有参构造方法
+     *
      * @param rid
      * @param rname
      * @param price

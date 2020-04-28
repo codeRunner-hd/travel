@@ -8,6 +8,7 @@ import cn.itcast.travel.domain.User;
 public interface UserService {
     /**
      * 注册用户
+     *
      * @param user
      * @return
      */
@@ -15,6 +16,7 @@ public interface UserService {
 
     /**
      * 激活用户
+     *
      * @param code
      * @return
      */
@@ -22,6 +24,7 @@ public interface UserService {
 
     /**
      * 用户登录
+     *
      * @param user
      * @return
      */
