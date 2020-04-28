@@ -262,3 +262,7 @@
 0:0:0:0:0:0:0:1 - - [27/Apr/2020:23:20:55 +0800] "GET /travel/checkCode HTTP/1.1" 200 414 http-bio-80-exec-9 13
 0:0:0:0:0:0:0:1 - - [27/Apr/2020:23:20:55 +0800] "GET /travel/header.html HTTP/1.1" 304 - http-bio-80-exec-9 4
 0:0:0:0:0:0:0:1 - - [27/Apr/2020:23:20:55 +0800] "GET /travel/user/findOne HTTP/1.1" 200 4 http-bio-80-exec-9 1
+127.0.0.1 - - [27/Apr/2020:23:22:42 +0800] "GET /wpad.dat HTTP/1.1" 404 - http-bio-80-exec-8 0
+127.0.0.1 - - [27/Apr/2020:23:32:42 +0800] "GET /wpad.dat HTTP/1.1" 404 - http-bio-80-exec-3 0
+127.0.0.1 - - [27/Apr/2020:23:42:42 +0800] "GET /wpad.dat HTTP/1.1" 404 - http-bio-80-exec-5 0
+127.0.0.1 - - [27/Apr/2020:23:52:43 +0800] "GET /wpad.dat HTTP/1.1" 404 - http-bio-80-exec-7 0
