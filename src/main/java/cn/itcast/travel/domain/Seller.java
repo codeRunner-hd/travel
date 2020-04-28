@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * 商家实体类
+ *
  * @author Admin
  */
 public class Seller implements Serializable {
@@ -27,10 +28,12 @@ public class Seller implements Serializable {
     /**
      * 无参构造方法
      */
-    public Seller(){}
+    public Seller() {
+    }
 
     /**
      * 构造方法
+     *
      * @param sid
      * @param sname
      * @param consphone

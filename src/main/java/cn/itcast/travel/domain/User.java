@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * 用户实体类
+ *
  * @author Admin
  */
 public class User implements Serializable {
@@ -56,6 +57,7 @@ public class User implements Serializable {
 
     /**
      * 有参构方法
+     *
      * @param uid
      * @param username
      * @param password

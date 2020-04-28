@@ -7,6 +7,7 @@ import java.util.Properties;
 
 /**
  * 发邮件工具类
+ *
  * @author Admin
  */
 public final class MailUtils {
@@ -21,12 +22,13 @@ public final class MailUtils {
 
     /**
      * 发送验证信息的邮件
+     *
      * @param to    收件人邮箱
      * @param text  邮件正文
      * @param title 邮件标题
-     * @return  发送结果
+     * @return 发送结果
      */
-    public static boolean sendMail(String to, String text, String title){
+    public static boolean sendMail(String to, String text, String title) {
         try {
             final Properties props = new Properties();
             props.put("mail.smtp.auth", "true");
@@ -68,7 +70,7 @@ public final class MailUtils {
             // 发送邮件
             Transport.send(message);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -76,11 +78,12 @@ public final class MailUtils {
 
     /**
      * 测试发送邮件
+     *
      * @param args
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        MailUtils.sendMail("test@163.com","你好，这是一封测试邮件，无需回复。","测试邮件");
+        MailUtils.sendMail("test@163.com", "你好，这是一封测试邮件，无需回复。", "测试邮件");
         System.out.println("发送成功");
     }
 }

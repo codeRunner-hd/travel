@@ -8,6 +8,7 @@ import java.io.IOException;
 
 /**
  * 解决全站乱码问题，处理所有的请求
+ *
  * @author Admin
  */
 @WebFilter("/*")
@@ -25,12 +26,12 @@ public class CharchaterFilter implements Filter {
         //获取请求方法
         String method = request.getMethod();
         //解决post请求中文数据乱码问题
-        if("post".equalsIgnoreCase(method)){
+        if ("post".equalsIgnoreCase(method)) {
             request.setCharacterEncoding("utf-8");
         }
         //处理响应乱码
         response.setContentType("text/html;charset=utf-8");
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
     }
 
     @Override

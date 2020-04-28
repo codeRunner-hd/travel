@@ -1,7 +1,5 @@
 package cn.itcast.travel.web.servlet;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +8,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
+ * 抽取基本的BaseServlet
+ *
  * @Author: Admin-han
  * @DateTime: 2020/4/27 22:08
  */
