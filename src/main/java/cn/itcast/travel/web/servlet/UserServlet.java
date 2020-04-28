@@ -48,13 +48,8 @@ public class UserServlet extends BaseServlet {
             info.setFlag(false);
             info.setErrorMsg("对不起，验证码输入错误！");
 
-            // 将info对象序列化为json
-            ObjectMapper mapper = new ObjectMapper();
-            String json = mapper.writeValueAsString(info);
-
-            // 将json数据写回到客户端
-            // 设置content-type
-            response.setContentType("application/json;charset=utf-8");
+            // 将info对象序列化为json,并返回
+            String json = writeValueAsString(info, response);
             response.getWriter().write(json);
 
             // 直接返回，不进行接下来的操作
@@ -84,13 +79,8 @@ public class UserServlet extends BaseServlet {
             info.setErrorMsg("对不起，注册失败！");
         }
 
-        // 将info对象序列化为json
-        ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(info);
-
-        // 将json数据写回到客户端
-        // 设置content-type
-        response.setContentType("application/json;charset=utf-8");
+        // 将info对象序列化为json,并返回
+        String json = writeValueAsString(info, response);
         response.getWriter().write(json);
     }
 
@@ -112,7 +102,6 @@ public class UserServlet extends BaseServlet {
             e.printStackTrace();
         }
         // 3、调用service登录方法
-        //UserService userService = new UserServiceImpl();
         User u = userService.login(user);
 
         ResultInfo info = new ResultInfo();
@@ -136,11 +125,8 @@ public class UserServlet extends BaseServlet {
         // 将查询到的用户存到session中，便于读取用户名，展示到首页
         request.getSession().setAttribute("user",u);
 
-        // 响应数据
-        ObjectMapper mapper = new ObjectMapper();
-
-        response.setContentType("application/json;charset=utf-8");
-        mapper.writeValue(response.getOutputStream(),info);
+        // 将info序列化为json，并且写回客户端
+        writeValue(info,response);
     }
 
     /**
@@ -153,10 +139,8 @@ public class UserServlet extends BaseServlet {
     public void findOne(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 从session中获取登录用户
         Object user = request.getSession().getAttribute("user");
-        // 将user写回到客户端
-        ObjectMapper mapper = new ObjectMapper();
-        response.setContentType("application/json;charset=utf-8");
-        mapper.writeValue(response.getOutputStream(),user);
+        // 将user序列化为json，并且写回客户端
+        writeValue(user,response);
     }
 
     /**
