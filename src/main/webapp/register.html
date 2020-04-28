@@ -123,7 +123,7 @@
 					// 1.发送数据到服务器
 					if (checkUsername() && checkPassword() && checkEmail() && checkTelephone() && checkBirthday() && checkCheck()){
 						// 校验通过，发送ajax请求，提交表单的数据 username=zhangsan$password=123456
-						$.post("registUserServlet",$(this).serialize(),function (data) {
+						$.post("user/regist",$(this).serialize(),function (data) {
 							// 处理服务器响应的数据 data {flag:true,errorMsg:"注册失败！"}
 							if (data.flag){
 								// 注册成功，跳转成功页面

@@ -10,7 +10,7 @@ html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, l
     margin: 0;
     padding: 0;  
     box-sizing: border-box;
-    font-family: '微软雅黑';
+    font-family: '微软雅黑', serif;
 }
 
 fieldset, img, input, button {
@@ -82,7 +82,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .shortcut {
-    width: 1200px;
+    width: 98%;
     height: 50px;
 }
 
@@ -93,7 +93,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .login {
-    width: 205px;
+    width: 230px;
     font-size: 12px;
 }
 .login a{
@@ -111,7 +111,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .header_wrap {
-    widows: 100%;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -175,7 +175,7 @@ h1, h2, h3, h4, h5, h6 {
 
 :-ms-input-placeholder {
     /* Internet Explorer 10+ */
-    font-size: 12x;
+    font-size: 12px;
 }
 
 .hot_pic,
@@ -248,7 +248,7 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 auto;
     border-bottom: solid 1px #666;
     padding: 10px 85px;
-    font-family: '微软雅黑';
+    font-family: '微软雅黑', serif;
 }
 
 .why_select dl {
