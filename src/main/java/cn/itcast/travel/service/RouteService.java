@@ -12,7 +12,7 @@ import cn.itcast.travel.domain.Route;
 public interface RouteService {
 
     /**
-     * 线路分页查询
+     * 根据类别进行线路分页查询
      *
      * @param cid
      * @param currentPage

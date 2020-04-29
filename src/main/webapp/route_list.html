@@ -15,8 +15,119 @@
             var search = location.search;
             // 切割获取第二个值(cid)
             var cid = search.split("=")[1];
-
+            // 当页码加载完成后，调用load方法发送ajax请求，加载页面数据,此处使用局部请求
+            load(cid);
         });
+
+        // 抽取方法，参数可以设置种类cid，当前页码currentPage，页面条数pageSize，视情况而定
+        function load(cid, currentPage) {
+            // 发送ajax请求，请求route/pageQuery,传递cid
+            $.get("route/pageQuery", {cid: cid, currentPage: currentPage}, function (data) {
+                // 解析pageBean数据，展示到页面上
+
+                // 1.分页工具条数据展示
+                // 1.1 展示总页码数和总记录数
+                $("#totalPage").html(data.totalPage);
+                $("#totalCount").html(data.totalCount);
+                // 1.2 展示分页页码
+                var page_lis = "";
+                var firstPage = '<li onclick="javascript:load(' + cid + ',' + 1 + ')"><a href="javascript:void(0);">首页</a></li>';
+                page_lis += firstPage;
+                // 计算上一页的页码
+                var beforeNum = data.currentPage - 1;
+                if (beforeNum <= 0) {
+                    beforeNum = 1;
+                }
+                var prePage = '<li onclick="javascript:load(' + cid + ',' + beforeNum + ')" class="threeword"><a href="javascript:void(0);">上一页</a></li>';
+                page_lis += prePage;
+
+                /*
+                    1、仿照百度的页码工具条，一共展示10个页码，能够达到前5后4的效果
+                    2、如果前边不够5个，后边补齐10个
+                    3、如果后边不足4个，前边补齐10个
+                */
+                // 定义开始位置begin,结束位置end
+                var begin;
+                var end;
+                // 设置显示10个页码
+                if (data.totalPage < 10) {
+                    // 总页码不够10页
+                    begin = 1;
+                    end = data.totalPage;
+                } else {
+                    // 总页码超过10页
+                    begin = data.currentPage - 5;
+                    end = data.currentPage + 4;
+
+                    // 如果前边不够5个，则从后边补齐10个
+                    if (begin < 1) {
+                        begin = 1;
+                        end = begin + 9;
+                    }
+
+                    // 如果后边不够4个，则从前面补齐10
+                    if (end > data.totalPage) {
+                        end = data.totalPage;
+                        begin = end - 9;
+                    }
+                }
+
+                for (var i = begin; i <= end; i++) {
+                    var page_li;
+                    // 判断当前页码是否等于i
+                    if (data.currentPage == i) {
+                        // 若相等，添加一个当前页码样式curPage
+                        page_li = '<li class="curPage" onclick="javascript:load(' + cid + ',' + i + ')"><a href="javascript:void(0);">' + i + '</a></li>';
+                    } else {
+                        // 创建页码的li,不带样式
+                        page_li = '<li onclick="javascript:load(' + cid + ',' + i + ')"><a href="javascript:void(0);">' + i + '</a></li>';
+                    }
+                    // 拼接字符串
+                    page_lis += page_li;
+                }
+
+                // 计算下一页的页码
+                var nextNum = data.currentPage + 1;
+                if (nextNum >= data.totalPage) {
+                    nextNum = data.totalPage;
+                }
+                var nextPage = '<li onclick="javascript:load(' + cid + ',' + nextNum + ')" class="threeword"><a href="javascript:void(0);">下一页</a></li>';
+                page_lis += nextPage;
+                // 计算末页页码
+                var lastNum = data.totalPage;
+                var lastPage = '<li onclick="javascript:load(' + cid + ',' + lastNum + ')" class="threeword"><a href="javascript:void(0);">末页</a></li>';
+                page_lis += lastPage;
+                // 将lis内容设置到ul中
+                $("#pageNum").html(page_lis);
+                // 2 列表数据展示
+                var route_lis = "";
+                for (var i = 0; i < data.list.length; i++) {
+                    // 获取list数据{rid:1,rname:""}
+                    var route = data.list[i];
+                    var route_li = '<li>\n' +
+                '                        <div class="img"><img src="' + route.rimage + '" style="width: 299px;"></div>\n' +
+                '                        <div class="text1">\n' +
+                '                            <p>' + route.rname + '</p>\n' +
+                '                            <br/>\n' +
+                '                            <p>' + route.routeIntroduce + '</p>\n' +
+                '                        </div>\n' +
+                '                        <div class="price">\n' +
+                '                            <p class="price_num">\n' +
+                '                                <span>&yen;</span>\n' +
+                '                                <span>' + route.price + '</span>\n' +
+                '                                <span>起</span>\n' +
+                '                            </p>\n' +
+                '                            <p><a href="route_detail.html">查看详情</a></p>\n' +
+                '                        </div>\n' +
+                '                    </li>';
+                    route_lis += route_li;
+                }
+                $("#route_ul").html(route_lis);
+
+                // 每次点击页面后，都滚动到顶部开始浏览
+                window.scrollTo(0, 0);
+            });
+        }
     </script>
 </head>
 <body>
@@ -34,156 +145,15 @@
                     <span>商品信息</span>
                     <span class="jg">价格</span>
                 </div>
-                <ul>
-                    <li>
-                        <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
-                        <div class="text1">
-                            <p>【减100元 含除夕/春节出发】广州增城三英温泉度假酒店/自由行套票</p>
-                            <br/>
-                            <p>1-2月出发，网付立享￥1099/2人起！爆款位置有限，抢完即止！</p>
-                        </div>
-                        <div class="price">
-                            <p class="price_num">
-                                <span>&yen;</span>
-                                <span>299</span>
-                                <span>起</span>
-                            </p>
-                            <p><a href="route_detail.html">查看详情</a></p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
-                        <div class="text1">
-                            <p>浪花朵朵旅行普吉岛丛林飞跃空中飞人探险游中文服务泰国旅游</p>
-                            <br/>
-                            <p>1-2月出发，网付立享￥1099/2人起！爆款位置有限，抢完即止！</p>
-                        </div>
-                        <div class="price">
-                            <p class="price_num">
-                                <span>&yen;</span>
-                                <span>899</span>
-                                <span>起</span>
-                            </p>
-                            <p><a href="route_detail.html">查看详情</a></p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
-                        <div class="text1">
-                            <p>黑妞皇家旅行普吉岛攀牙湾大船星光之旅皮划艇日落休闲特色体验</p>
-                            <br/>
-                            <p>1-2月出发，网付立享￥1099/2人起！爆款位置有限，抢完即止！</p>
-                        </div>
-                        <div class="price">
-                            <p class="price_num">
-                                <span>&yen;</span>
-                                <span>999</span>
-                                <span>起</span>
-                            </p>
-                            <p><a href="route_detail.html">查看详情</a></p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
-                        <div class="text1">
-                            <p>浪花朵朵旅行普吉岛皇帝岛珊瑚岛香蕉船拖拽伞水上项目</p>
-                            <br/>
-                            <p>1-2月出发，网付立享￥1099/2人起！爆款位置有限，抢完即止！</p>
-                        </div>
-                        <div class="price">
-                            <p class="price_num">
-                                <span>&yen;</span>
-                                <span>99</span>
-                                <span>起</span>
-                            </p>
-                            <p><a href="route_detail.html">查看详情</a></p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
-                        <div class="text1">
-                            <p>环游记 泰国清迈Lila massage女子监狱spa 丽菈泰式按摩马杀鸡</p>
-                            <br/>
-                            <p>1-2月出发，网付立享￥1099/2人起！爆款位置有限，抢完即止！</p>
-                        </div>
-                        <div class="price">
-                            <p class="price_num">
-                                <span>&yen;</span>
-                                <span>199</span>
-                                <span>起</span>
-                            </p>
-                            <p><a href="route_detail.html">查看详情</a></p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
-                        <div class="text1">
-                            <p>【减100元 含除夕/春节出发】广州增城三英温泉度假酒店/自由行套票</p>
-                            <br/>
-                            <p>1-2月出发，网付立享￥1099/2人起！爆款位置有限，抢完即止！</p>
-                        </div>
-                        <div class="price">
-                            <p class="price_num">
-                                <span>&yen;</span>
-                                <span>899</span>
-                                <span>起</span>
-                            </p>
-                            <p><a href="route_detail.html">查看详情</a></p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
-                        <div class="text1">
-                            <p>【减100元 含除夕/春节出发】广州增城三英温泉度假酒店/自由行套票</p>
-                            <br/>
-                            <p>1-2月出发，网付立享￥1099/2人起！爆款位置有限，抢完即止！</p>
-                        </div>
-                        <div class="price">
-                            <p class="price_num">
-                                <span>&yen;</span>
-                                <span>1199</span>
-                                <span>起</span>
-                            </p>
-                            <p><a href="route_detail.html">查看详情</a></p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
-                        <div class="text1">
-                            <p>泰国芭提雅三合一日游芭提雅蒂芬妮人妖秀成人门票bigeye含接送</p>
-                            <br/>
-                            <p>1-2月出发，网付立享￥1099/2人起！爆款位置有限，抢完即止！</p>
-                        </div>
-                        <div class="price">
-                            <p class="price_num">
-                                <span>&yen;</span>
-                                <span>1589</span>
-                                <span>起</span>
-                            </p>
-                            <p><a href="route_detail.html">查看详情</a></p>
-                        </div>
-                    </li>
+                <ul id="route_ul">
+                    // 此处展示旅游路线详情信息
                 </ul>
                 <div class="page_num_inf">
-                    <i></i> 共
-                    <span>12</span>页<span>132</span>条
+                    <i></i>共 <span id="totalPage">0</span> 页 <span id="totalCount">0</span> 条数据
                 </div>
                 <div class="pageNum">
-                    <ul>
-                        <li><a href="">首页</a></li>
-                        <li class="threeword"><a href="#">上一页</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">6</a></li>
-                        <li><a href="#">7</a></li>
-                        <li><a href="#">8</a></li>
-                        <li><a href="#">9</a></li>
-                        <li><a href="#">10</a></li>
-                        <li class="threeword"><a href="javascript:;">下一页</a></li>
-                        <li class="threeword"><a href="javascript:;">末页</a></li>
+                    <ul id="pageNum">
+                        // 此处展示页码工具栏
                     </ul>
                 </div>
             </div>

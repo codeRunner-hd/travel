@@ -4,8 +4,17 @@
         // 获取用户名，显示到右上角
         $.get("user/findOne",{},function (data) {
             // data : {uid:1,name:'李四'}
-            var msg = "欢迎回来，" + data.name;
-            $("#span_username").html(msg);
+            // 优化：判断查询返回的是否有数据
+            if (data){
+                // 有数据则进行展示，然后将登陆、注册按钮隐藏
+                $("#login_in").show();
+                var msg = "欢迎回来，" + data.name;
+                $("#span_username").html(msg);
+                $("#login_out").hide();
+            }else{
+                // 没有数据则隐藏展示信息，只显示登陆、注册按钮
+                $("#login_in").hide();
+            }
         });
 
         // 查询商品分类信息
@@ -30,13 +39,12 @@
         </div>
         <div class="shortcut">
             <!-- 未登录状态  -->
-             <div class="login_out">
+             <div id="login_out" class="login_out">
                 <a href="login.html">登录</a>
                 <a href="register.html">注册</a>
             </div>
             <!-- 登录状态  -->
-            <div class="login">
-            	
+            <div id="login_in" class="login">
                 <span id="span_username"></span>
                 <a href="myfavorite.html" class="collection">我的收藏</a>
                 <a href="javascript:location.href='user/exit';">退出</a>
@@ -45,7 +53,7 @@
         <div class="header_wrap">
             <div class="topbar">
                 <div class="logo">
-                    <a href="/"><img src="images/logo.jpg" alt=""></a>
+                    <a href="index.html"><img src="images/logo.jpg" alt=""></a>
                 </div>
                 <div class="search">
                     <label>
@@ -69,16 +77,7 @@
      <!-- 首页导航 -->
     <div class="navitem">
         <ul id="category" class="nav">
-            <!--<li class="nav-active"><a href="index.html">首页</a></li>
-            <li><a href="route_list.html">门票</a></li>
-            <li><a href="route_list.html">酒店</a></li>
-            <li><a href="route_list.html">香港车票</a></li>
-            <li><a href="route_list.html">出境游</a></li>
-            <li><a href="route_list.html">国内游</a></li>
-            <li><a href="route_list.html">港澳游</a></li>
-            <li><a href="route_list.html">抱团定制</a></li>
-            <li><a href="route_list.html">全球自由行</a></li>
-            <li><a href="favoriterank.html">收藏排行榜</a></li>-->
+            // 此处展示导航栏种类
         </ul>
     </div>
     

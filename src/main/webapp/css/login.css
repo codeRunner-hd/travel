@@ -43,6 +43,7 @@
     border-color: #ebccd1;
     margin-bottom: 17px;
     font-size: 12px;
+    display: none;
 }
 
 .login_inner form {
@@ -50,6 +51,7 @@
     overflow: hidden;
     padding-bottom: 15px;
     border-bottom: 1px solid #eee;
+    margin-top: 15px;
 }
 
 .login_inner input {

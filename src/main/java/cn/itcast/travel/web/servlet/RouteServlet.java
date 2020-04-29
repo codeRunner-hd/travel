@@ -53,9 +53,9 @@ public class RouteServlet extends BaseServlet {
         }else{
             pageSize = 10;
         }
-        // 3.调用service方法
+        // 3.调用service方法，查询pageBean对象
         PageBean<Route> pageBean = routeService.pageQuery(cid, currentPage, pageSize);
-        // 4.将对象序列化为json，返回
+        // 4.将pageBean对象序列化为json，返回
         writeValue(pageBean,response);
     }
 }

@@ -25,20 +25,24 @@
             $("#btn_sub").click(function () {
                 // 2、发送ajax请求，提交表单数据
                 $.post("user/login", $("#loginForm").serialize(), function (data) {
+                    // 3、处理响应结果
                     // data : {flag:false,errorMsg:''}
                     if (data.flag) {
                         // 登录成功，跳转首页
                         location.href = "index.html";
                     } else {
                         // 登录失败，提示信息
+                        $("#errorMsg").show();
                         $("#errorMsg").html(data.errorMsg);
                     }
                 });
             });
         });
 
-        // 3、处理响应结果
-
+        //图片点击事件
+        function changeCheckCode(img) {
+            img.src = "checkCode?" + new Date().getTime();
+        }
     </script>
 </head>
 
@@ -59,6 +63,7 @@
 
             <!--登录错误提示消息-->
             <div id="errorMsg" class="alert alert-danger"></div>
+
             <form id="loginForm" action="" method="post" accept-charset="utf-8">
                 <input type="hidden" name="action" value="login"/>
                 <label>
@@ -71,13 +76,7 @@
                     <label>
                         <input name="check" type="text" placeholder="请输入验证码" autocomplete="off">
                     </label>
-                    <span><img src="checkCode" alt="" onclick="changeCheckCode(this)"></span>
-                    <script type="text/javascript">
-                        //图片点击事件
-                        function changeCheckCode(img) {
-                            img.src = "checkCode?" + new Date().getTime();
-                        }
-                    </script>
+                    <span><img style="padding: 6px 0 0 10px;" src="checkCode" onclick="changeCheckCode(this)"></span>
                 </div>
                 <div class="submit_btn">
                     <button type="button" id="btn_sub">登录</button>

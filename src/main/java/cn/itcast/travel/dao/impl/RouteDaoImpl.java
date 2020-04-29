@@ -36,6 +36,6 @@ public class RouteDaoImpl implements RouteDao {
     @Override
     public List<Route> findByPage(int cid, int start, int pageSize) {
         String sql = "select * from tab_route where cid = ? limit ? , ?";
-        return template.query(sql, new BeanPropertyRowMapper<Route>(), cid, start, pageSize);
+        return template.query(sql, new BeanPropertyRowMapper<Route>(Route.class), cid, start, pageSize);
     }
 }
