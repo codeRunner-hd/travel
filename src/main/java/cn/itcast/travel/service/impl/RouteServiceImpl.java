@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class RouteServiceImpl implements RouteService {
     private RouteDao routeDao = new RouteDaoImpl();
+
     /**
      * 线路分页查询
      *
@@ -36,7 +37,7 @@ public class RouteServiceImpl implements RouteService {
         // 获取页面起始条数
         int start = (currentPage - 1) * pageSize;
         // 获取页面数据集合
-        List<Route> list = routeDao.findByPage(cid,start,pageSize);
+        List<Route> list = routeDao.findByPage(cid, start, pageSize);
 
         // 获取总页码，并设置
         int totalPage = totalCount % pageSize == 0 ? totalCount / pageSize : (totalCount / pageSize) + 1;

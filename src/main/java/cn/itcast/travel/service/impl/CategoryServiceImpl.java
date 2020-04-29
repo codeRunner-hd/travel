@@ -18,6 +18,7 @@ import java.util.Set;
  */
 public class CategoryServiceImpl implements CategoryService {
     private CategoryDao categoryDao = new CategoryDaoImpl();
+
     /**
      * 查询商品目录
      *
@@ -34,16 +35,16 @@ public class CategoryServiceImpl implements CategoryService {
         Set<Tuple> categorys = jedis.zrangeWithScores("category", 0, -1);
         List<Category> list = null;
         // 2、判断查询的集合是否为空
-        if (categorys == null || categorys.size() == 0){
+        if (categorys == null || categorys.size() == 0) {
             // 若为空，则从数据库进行查询，然后存储到redis中
             System.out.println("从数据库查询。。。");
             // 3.1、从数据库进行查询
             list = categoryDao.findAll();
             // 3.2、遍历集合，将集合数据存储到redis中 category的key中
             for (int i = 0; i < list.size(); i++) {
-                jedis.zadd("category",list.get(i).getCid(),list.get(i).getCname());
+                jedis.zadd("category", list.get(i).getCid(), list.get(i).getCname());
             }
-        }else{
+        } else {
             // 若集合不为空，则从redis中查询
             System.out.println("从redis中查询。。。");
             // 将set集合中的数据存入到list集合中

@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class RouteDaoImpl implements RouteDao {
     private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
+
     /**
      * 根据cid查询总记录数
      *
@@ -27,6 +28,7 @@ public class RouteDaoImpl implements RouteDao {
 
     /**
      * 根据cid,start,pageSize查询当前页面的数据集合
+     *
      * @param cid
      * @param start
      * @param pageSize
@@ -34,6 +36,6 @@ public class RouteDaoImpl implements RouteDao {
     @Override
     public List<Route> findByPage(int cid, int start, int pageSize) {
         String sql = "select * from tab_route where cid = ? limit ? , ?";
-        return template.query(sql, new BeanPropertyRowMapper<Route>(),cid,start,pageSize);
+        return template.query(sql, new BeanPropertyRowMapper<Route>(), cid, start, pageSize);
     }
 }
