@@ -9,21 +9,34 @@
     <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" href="css/search.css">
     <script src="js/jquery-3.3.1.js"></script>
+    <!-- 引入根据传递的参数name获取对应的值的js -->
+    <script src="js/getParameter.js"></script>
     <script>
         $(function () {
-            // 获取连接？及后面所携带的值
+            /*// 获取连接？及后面所携带的值
             var search = location.search;
             // 切割获取第二个值(cid)
             var cid = search.split("=")[1];
+            */
+            // 获取连接？及后面cid、rname的值
+            var cid = getParameter("cid");
+            var rname = getParameter("rname");
+            // 判断rname不为null或不等于""
+            if (rname){
+                // 使用uri进行解码，正常显示中文
+                rname = window.decodeURIComponent(rname);
+            }
             // 当页码加载完成后，调用load方法发送ajax请求，加载页面数据,此处使用局部请求
-            load(cid);
+            load(cid,null,rname);
         });
 
         // 抽取方法，参数可以设置种类cid，当前页码currentPage，页面条数pageSize，视情况而定
-        function load(cid, currentPage) {
+        function load(cid, currentPage, rname) {
             // 发送ajax请求，请求route/pageQuery,传递cid
-            $.get("route/pageQuery", {cid: cid, currentPage: currentPage}, function (data) {
+            $.get("route/pageQuery", {cid: cid, currentPage: currentPage,rname:rname}, function (data) {
                 // 解析pageBean数据，展示到页面上
+                // 将搜索内容回显到搜索框中
+                $("#search_input").val(rname);
 
                 // 1.分页工具条数据展示
                 // 1.1 展示总页码数和总记录数
@@ -31,14 +44,14 @@
                 $("#totalCount").html(data.totalCount);
                 // 1.2 展示分页页码
                 var page_lis = "";
-                var firstPage = '<li onclick="javascript:load(' + cid + ',' + 1 + ')"><a href="javascript:void(0);">首页</a></li>';
+                var firstPage = '<li onclick="javascript:load('+cid+',1,\''+rname+'\')"><a href="javascript:void(0);">首页</a></li>';
                 page_lis += firstPage;
                 // 计算上一页的页码
                 var beforeNum = data.currentPage - 1;
                 if (beforeNum <= 0) {
                     beforeNum = 1;
                 }
-                var prePage = '<li onclick="javascript:load(' + cid + ',' + beforeNum + ')" class="threeword"><a href="javascript:void(0);">上一页</a></li>';
+                var prePage = '<li onclick="javascript:load('+cid+','+beforeNum+',\''+rname+'\')" class="threeword"><a href="javascript:void(0);">上一页</a></li>';
                 page_lis += prePage;
 
                 /*
@@ -77,10 +90,10 @@
                     // 判断当前页码是否等于i
                     if (data.currentPage == i) {
                         // 若相等，添加一个当前页码样式curPage
-                        page_li = '<li class="curPage" onclick="javascript:load(' + cid + ',' + i + ')"><a href="javascript:void(0);">' + i + '</a></li>';
+                        page_li = '<li class="curPage" onclick="javascript:load('+cid+','+i+',\''+rname+'\')"><a href="javascript:void(0);">' + i + '</a></li>';
                     } else {
                         // 创建页码的li,不带样式
-                        page_li = '<li onclick="javascript:load(' + cid + ',' + i + ')"><a href="javascript:void(0);">' + i + '</a></li>';
+                        page_li = '<li onclick="javascript:load('+cid+','+i+',\''+rname+'\')"><a href="javascript:void(0);">' + i + '</a></li>';
                     }
                     // 拼接字符串
                     page_lis += page_li;
@@ -91,11 +104,11 @@
                 if (nextNum >= data.totalPage) {
                     nextNum = data.totalPage;
                 }
-                var nextPage = '<li onclick="javascript:load(' + cid + ',' + nextNum + ')" class="threeword"><a href="javascript:void(0);">下一页</a></li>';
+                var nextPage = '<li onclick="javascript:load('+cid+','+nextNum+',\''+rname+'\')" class="threeword"><a href="javascript:void(0);">下一页</a></li>';
                 page_lis += nextPage;
                 // 计算末页页码
                 var lastNum = data.totalPage;
-                var lastPage = '<li onclick="javascript:load(' + cid + ',' + lastNum + ')" class="threeword"><a href="javascript:void(0);">末页</a></li>';
+                var lastPage = '<li onclick="javascript:load('+cid+','+lastNum+',\''+rname+'\')" class="threeword"><a href="javascript:void(0);">末页</a></li>';
                 page_lis += lastPage;
                 // 将lis内容设置到ul中
                 $("#pageNum").html(page_lis);
@@ -117,7 +130,7 @@
                 '                                <span>' + route.price + '</span>\n' +
                 '                                <span>起</span>\n' +
                 '                            </p>\n' +
-                '                            <p><a href="route_detail.html">查看详情</a></p>\n' +
+                '                            <p><a href="route_detail.html?rid='+route.rid+'">查看详情</a></p>\n' +
                 '                        </div>\n' +
                 '                    </li>';
                     route_lis += route_li;
@@ -146,14 +159,14 @@
                     <span class="jg">价格</span>
                 </div>
                 <ul id="route_ul">
-                    // 此处展示旅游路线详情信息
+                    <!--此处展示旅游路线详情信息-->
                 </ul>
                 <div class="page_num_inf">
                     <i></i>共 <span id="totalPage">0</span> 页 <span id="totalCount">0</span> 条数据
                 </div>
                 <div class="pageNum">
                     <ul id="pageNum">
-                        // 此处展示页码工具栏
+                        <!--此处展示页码工具栏-->
                     </ul>
                 </div>
             </div>
@@ -209,7 +222,7 @@
     </div>
 </div>
 
-<!--引入头部-->
+<!--引入脚部-->
 <div id="footer"></div>
 <!--导入布局js，共享header和footer-->
 <script type="text/javascript" src="js/include.js"></script>

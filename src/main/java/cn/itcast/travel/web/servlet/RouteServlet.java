@@ -22,6 +22,7 @@ public class RouteServlet extends BaseServlet {
 
     /**
      * 线路分页查询
+     *
      * @param request
      * @param response
      * @throws ServletException
@@ -33,29 +34,53 @@ public class RouteServlet extends BaseServlet {
         String pageSizeStr = request.getParameter("pageSize");
         String cidStr = request.getParameter("cid");
 
+        // 接受搜索框名称参数rname
+        String rname = request.getParameter("rname");
+        if (rname != null && rname.length() > 0) {
+            // 处理rname乱码的问题
+            rname = new String(rname.getBytes("iso-8859-1"), "utf-8");
+        }
+
         // 2.处理参数
-        int cid,currentPage,pageSize = 0;
+        int cid, currentPage, pageSize = 0;
         // 若商品类别编号不为空，则进行强转
-        if (cidStr != null && cidStr.length() > 0){
+        if (cidStr != null && cidStr.length() > 0 && !"".equals(cidStr)) {
             cid = Integer.parseInt(cidStr);
-        }else{
+        } else {
             cid = 0;
         }
         // 若当前页码不为空，则进行强转，否则设置当前页码默认为1
-        if (currentPageStr != null && currentPageStr.length() > 0){
+        if (currentPageStr != null && currentPageStr.length() > 0) {
             currentPage = Integer.parseInt(currentPageStr);
-        }else{
+        } else {
             currentPage = 1;
         }
         // 若页码条数不为空，则进行强转，否则设置页码条数默认为10条
-        if (pageSizeStr != null && pageSizeStr.length() > 0){
+        if (pageSizeStr != null && pageSizeStr.length() > 0) {
             pageSize = Integer.parseInt(pageSizeStr);
-        }else{
+        } else {
             pageSize = 10;
         }
         // 3.调用service方法，查询pageBean对象
-        PageBean<Route> pageBean = routeService.pageQuery(cid, currentPage, pageSize);
+        PageBean<Route> pageBean = routeService.pageQuery(cid, currentPage, pageSize, rname);
         // 4.将pageBean对象序列化为json，返回
-        writeValue(pageBean,response);
+        writeValue(pageBean, response);
+    }
+
+    /**
+     * 根据id查询一个旅游线路的详细信息
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void findOne(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 1.接收id
+        String rid = request.getParameter("rid");
+        // 2.调用serivce方法查询route对象
+        Route route = routeService.findOne(rid);
+        // 3.将route对象转换为json，写回客户端
+        writeValue(route,response);
     }
 }

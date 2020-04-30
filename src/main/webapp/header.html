@@ -1,4 +1,6 @@
 <!-- 头部 start -->
+<!-- 引入根据传递的参数name获取对应的值的js -->
+<script src="js/getParameter.js"></script>
 <script>
     $(function () {
         // 获取用户名，显示到右上角
@@ -31,6 +33,15 @@
             // 将list设置到ul导航栏中
             $("#category").html(lis);
         });
+
+        // 给搜索按钮绑定单击事件，获取搜索输入框的内容
+        $("#search_button").click(function () {
+            // 搜索框输入名称
+            var rname = $("#search_input").val();
+            var cid = getParameter("cid");
+            // 跳转路径 http://localhost/travel/route_list.html?cid=5,然后拼接rname=xxx
+            location.href="http://localhost/travel/route_list.html?cid="+cid+"&rname="+rname;
+        });
     });
 </script>
     <header id="header">
@@ -57,9 +68,9 @@
                 </div>
                 <div class="search">
                     <label>
-                        <input name="" type="text" placeholder="请输入路线名称" class="search_input" autocomplete="off">
+                        <input id="search_input" name="" type="text" placeholder="请输入路线名称" class="search_input" autocomplete="off">
                     </label>
-                    <a href="javascript:;" class="search-button">搜索</a>
+                    <a href="javascript:;" id="search_button" class="search-button">搜索</a>
                 </div>
                 <div class="hottel">
                     <div class="hot_pic">
@@ -80,4 +91,3 @@
             // 此处展示导航栏种类
         </ul>
     </div>
-    

@@ -160,7 +160,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .search-button {
-    float: left;
+    float: right;
     width: 90px;
     height: 40px;
     background: #ffc900;

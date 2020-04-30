@@ -72,7 +72,6 @@ public class Route implements Serializable {
      */
     private List<RouteImg> routeImgList;
 
-
     /**
      * 无参构造方法
      */
