@@ -46,10 +46,9 @@
             <div class="pros_price">
                 <p class="price"><strong id="price"><!--价格--></strong><span>起</span></p>
                 <p class="collect">
-                    <a class="btn"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
-
-                    <a class="btn already" disabled="disabled"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
-                    <span>已收藏100次</span>
+                    <a id="favorite" class="btn" onclick="addFavorite();"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
+                    <!--<a id="favorite_yes" class="btn already" disabled="disabled"><i class="glyphicon glyphicon-heart-empty"></i>取消收藏</a>-->
+                    <span id="favorite_count"><!--已收藏100次--></span>
                 </p>
             </div>
         </div>
@@ -172,6 +171,8 @@
             $("#sname").html(route.seller.sname);
             $("#consphone").html(route.seller.consphone);
             $("#address").html(route.seller.address);
+            // 设置收藏次数
+            $("#favorite_count").html("已收藏"+route.count+"次");
 
             // 左侧大图默认展示
             var dt_str = '<img alt="" class="big_img" src="'+route.routeImgList[0].bigPic+'">';
@@ -201,6 +202,40 @@
             image_cut();
         });
     });
+
+    // 入口函数
+    $(function () {
+        var rid = getParameter("rid");
+        $.get("route/isFavorite",{rid:rid},function (flag) {
+            if (flag){
+                // 用户已经收藏,设置收藏按钮的样式
+                $("#favorite").addClass("already");
+                $("#favorite").attr("disabled","disabled");
+
+                // 移除onclick单击事件
+                $("#favorite").removeAttr("onclick");
+            }else{
+                // 用户暂未收藏
+            }
+        });
+    });
+
+    // 点击收藏按钮方法
+    function addFavorite() {
+        var rid = getParameter("rid");
+        $.get("user/findOne",{},function (user) {
+            if (user){
+                // 用户已登录，调用添加功能
+                $.get("route/addFavorite",{rid:rid},function () {
+
+                });
+            }else{
+                // 用户未登录
+                alert("您尚未登录，请先登录");
+                location.href = "http://localhost/travel/login.html";
+            }
+        });
+    }
 </script>
 </body>
 

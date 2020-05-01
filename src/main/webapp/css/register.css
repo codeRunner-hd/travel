@@ -16,7 +16,7 @@
 }
 
 .rg_layout .rg_form > .rg_form_left {
-    width: 256px;
+    width: 225px;
     float: left;
     padding-top: 20px;
     padding-left: 20px;
@@ -24,7 +24,7 @@
 }
 
 .rg_layout .rg_form > .rg_form_center {
-    width: 358px;
+    width: 490px;
     float: left;
     padding-top: 10px;
     box-sizing: border-box;
@@ -32,7 +32,7 @@
 }
 
 .rg_layout .rg_form > .rg_form_right {
-    width: 256px;
+    width: 150px;
     float: right;
 }
 
@@ -74,6 +74,11 @@
     border: 1px solid #a6a6a6;
     float: right;
 }
+.regist_label{
+    font-size: 12px;
+    padding-left: 5px;
+    color: red;
+}
 
 .rg_form > .rg_form_center .td_right.gender {
     padding-left: 40px;
@@ -81,7 +86,7 @@
 }
 
 .rg_form > .rg_form_center .td_right.check {
-    padding-left: 36px;
+    padding-left: 20px;
     box-sizing: border-box;
 }
 
@@ -92,7 +97,7 @@
 }
 
 .rg_form > .rg_form_center .td_right > .submit {
-    width: 120px;
+    width: 90px;
     height: 36px;
     line-height: 36px;
     background-color: #ffc900;

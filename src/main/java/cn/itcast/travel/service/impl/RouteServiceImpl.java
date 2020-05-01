@@ -1,8 +1,10 @@
 package cn.itcast.travel.service.impl;
 
+import cn.itcast.travel.dao.FavoriteDao;
 import cn.itcast.travel.dao.RouteDao;
 import cn.itcast.travel.dao.RouteImgDao;
 import cn.itcast.travel.dao.SellerDao;
+import cn.itcast.travel.dao.impl.FavoriteDaoImpl;
 import cn.itcast.travel.dao.impl.RouteDaoImpl;
 import cn.itcast.travel.dao.impl.RouteImgDaoImpl;
 import cn.itcast.travel.dao.impl.SellerDaoImpl;
@@ -22,6 +24,7 @@ public class RouteServiceImpl implements RouteService {
     private RouteDao routeDao = new RouteDaoImpl();
     private RouteImgDao routeImgDao = new RouteImgDaoImpl();
     private SellerDao sellerDao = new SellerDaoImpl();
+    private FavoriteDao favoriteDao = new FavoriteDaoImpl();
 
     /**
      * 根据类别进行线路分页查询
@@ -71,6 +74,11 @@ public class RouteServiceImpl implements RouteService {
         // 3.根据route对象中的sid查询商家详细信息
         Seller seller = sellerDao.findBySid(route.getSid());
         route.setSeller(seller);
+
+        // 4.查询收藏次数
+        int count = favoriteDao.findCountByRid(route.getRid());
+        route.setCount(count);
+
         return route;
     }
 }

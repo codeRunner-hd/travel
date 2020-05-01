@@ -34,8 +34,10 @@ public class UserServlet extends BaseServlet {
      * @throws IOException
      */
     public void regist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ResultInfo info = new ResultInfo();
         // 首先校验验证码是否正确，如果不正确就不往下进行了
         String check = request.getParameter("check");
+
         // 从session中获取验证码
         HttpSession session = request.getSession();
         String checkcodeServer = (String) session.getAttribute("CHECKCODE_SERVER");
@@ -43,7 +45,6 @@ public class UserServlet extends BaseServlet {
         session.removeAttribute("CHECKCODE_SERVER");
         if (checkcodeServer == null || !checkcodeServer.equalsIgnoreCase(check)){
             // 验证码错误
-            ResultInfo info = new ResultInfo();
             // 提示注册失败
             info.setFlag(false);
             info.setErrorMsg("对不起，验证码输入错误！");
@@ -68,7 +69,6 @@ public class UserServlet extends BaseServlet {
         // 3、调用service完成注册
         //UserService userService = new UserServiceImpl();
         boolean flag = userService.regist(user);
-        ResultInfo info = new ResultInfo();
         // 4、响应结果
         if (flag){
             // 注册成功
@@ -76,7 +76,7 @@ public class UserServlet extends BaseServlet {
         }else{
             // 注册失败
             info.setFlag(false);
-            info.setErrorMsg("对不起，注册失败！");
+            info.setErrorMsg("对不起，用户已存在！");
         }
 
         // 将info对象序列化为json,并返回
@@ -92,38 +92,53 @@ public class UserServlet extends BaseServlet {
      * @throws IOException
      */
     public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 1、获取用户名和密码数据
-        Map<String, String[]> map = request.getParameterMap();
-        // 2、封装User对象
-        User user = new User();
-        try {
-            BeanUtils.populate(user,map);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        // 3、调用service登录方法
-        User u = userService.login(user);
-
         ResultInfo info = new ResultInfo();
-        // 4、判断用户对象是否为null
-        if (u == null){
-            // 用户名或密码错误
-            info.setFlag(false);
-            info.setErrorMsg("用户名或密码错误！");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String check = request.getParameter("check");
+        if (username == null || "".equals(username)){
+            info.setErrorMsg("用户名不能为空");
+        }else if (password == null || "".equals(password)){
+            info.setErrorMsg("密码不能为空");
+        }else if (check == null || "".equals(check)){
+            info.setErrorMsg("验证码不能为空");
+        }else{
+            // 调用验证码方法，如果不正确就不往下进行了
+            checkCode(info, check,request,response);
+
+            // 1、获取用户名和密码数据
+            Map<String, String[]> map = request.getParameterMap();
+            // 2、封装User对象
+            User user = new User();
+            try {
+                BeanUtils.populate(user,map);
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+            // 3、调用service登录方法
+            User u = userService.login(user);
+
+            // 4、判断用户对象是否为null
+            if (u == null){
+                // 用户名或密码错误
+                info.setFlag(false);
+                info.setErrorMsg("用户名或密码错误！");
+            }
+            // 5、判断用户是否激活
+            if (u != null && !"Y".equals(u.getStatus())){
+                // 用户尚未激活
+                info.setFlag(false);
+                info.setErrorMsg("用户尚未激活，请激活");
+            }
+            // 6、判断用户登录成功
+            if (u != null && "Y".equals(u.getStatus())){
+                // 登录成功
+                info.setFlag(true);
+
+                // 将查询到的用户存到session中，便于读取用户名，展示到首页
+                request.getSession().setAttribute("user",u);
+            }
         }
-        // 5、判断用户是否激活
-        if (u != null && !"Y".equals(u.getStatus())){
-            // 用户尚未激活
-            info.setFlag(false);
-            info.setErrorMsg("用户尚未激活，请激活");
-        }
-        // 6、判断用户登录成功
-        if (u != null && "Y".equals(u.getStatus())){
-            // 登录成功
-            info.setFlag(true);
-        }
-        // 将查询到的用户存到session中，便于读取用户名，展示到首页
-        request.getSession().setAttribute("user",u);
 
         // 将info序列化为json，并且写回客户端
         writeValue(info,response);

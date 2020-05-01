@@ -35,9 +35,12 @@
             // 发送ajax请求，请求route/pageQuery,传递cid
             $.get("route/pageQuery", {cid: cid, currentPage: currentPage,rname:rname}, function (data) {
                 // 解析pageBean数据，展示到页面上
-                // 将搜索内容回显到搜索框中
-                $("#search_input").val(rname);
-
+                // 判断搜索框是否有内容
+                if (!rname || rname == "null"){
+                    $("#search_input").val("");
+                }else{
+                    $("#search_input").val(rname);
+                }
                 // 1.分页工具条数据展示
                 // 1.1 展示总页码数和总记录数
                 $("#totalPage").html(data.totalPage);

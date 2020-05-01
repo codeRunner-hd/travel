@@ -36,7 +36,7 @@ public class RouteDaoImpl implements RouteDao {
             // 往集合中添加？对应的属性值
             params.add(cid);
         }
-        if (rname != null && rname.length() > 0){
+        if (rname != null && rname.length() > 0 && !"null".equals(rname)){
             sb.append(" and rname like ? ");
 
             params.add("%"+rname+"%");
@@ -66,7 +66,7 @@ public class RouteDaoImpl implements RouteDao {
             // 往集合中添加？对应的属性值
             params.add(cid);
         }
-        if (rname != null && rname.length() > 0){
+        if (rname != null && rname.length() > 0 && !"null".equals(rname)){
             sb.append(" and rname like ? ");
 
             params.add("%"+rname+"%");

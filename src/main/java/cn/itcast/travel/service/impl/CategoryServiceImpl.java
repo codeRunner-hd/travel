@@ -37,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
         // 2、判断查询的集合是否为空
         if (categorys == null || categorys.size() == 0) {
             // 若为空，则从数据库进行查询，然后存储到redis中
-            System.out.println("从数据库查询。。。");
+            // System.out.println("商品目录从数据库查询。。。");
             // 3.1、从数据库进行查询
             list = categoryDao.findAll();
             // 3.2、遍历集合，将集合数据存储到redis中 category的key中
@@ -46,7 +46,7 @@ public class CategoryServiceImpl implements CategoryService {
             }
         } else {
             // 若集合不为空，则从redis中查询
-            System.out.println("从redis中查询。。。");
+            // System.out.println("商品目录从redis中查询。。。");
             // 将set集合中的数据存入到list集合中
             list = new ArrayList<Category>();
             for (Tuple tuple : categorys) {

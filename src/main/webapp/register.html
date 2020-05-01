@@ -30,9 +30,11 @@
             if (flag) {
                 // 用户名合法
                 $("#username").css("border", "");
+                $("#username_label").css("display","none");
             } else {
                 // 用户名不合法
                 $("#username").css("border", "1px solid red");
+                $("#username_label").css("display","block");
             }
             return flag;
         }
@@ -48,9 +50,11 @@
             if (flag) {
                 // 密码合法
                 $("#password").css("border", "");
+                $("#password_label").css("display","none");
             } else {
                 // 密码不合法
                 $("#password").css("border", "1px solid red");
+                $("#password_label").css("display","block");
             }
             return flag;
         }
@@ -62,8 +66,10 @@
             var flag = reg_email.test(email);
             if (flag) {
                 $("#email").css("border", "");
+                $("#email_label").css("display","none");
             } else {
                 $("#email").css("border", "1px solid red");
+                $("#email_label").css("display","block");
             }
             return flag;
         }
@@ -73,9 +79,11 @@
             var name = $("#name").val();
             if (!name) {
                 $("#name").css("border", "1px solid red");
+                $("#name_label").css("display","block");
                 return false;
             } else {
                 $("#name").css("border", "");
+                $("#name_label").css("display","none");
                 return true;
             }
         }
@@ -87,8 +95,10 @@
             var flag = reg_telephone.test(telephone);
             if (flag) {
                 $("#telephone").css("border", "");
+                $("#telephone_label").css("display","none");
             } else {
                 $("#telephone").css("border", "1px solid red");
+                $("#telephone_label").css("display","block");
             }
             return flag;
         }
@@ -98,9 +108,11 @@
             var birthday = $("#birthday").val();
             if (!birthday) {
                 $("#birthday").css("border", "1px solid red");
+                $("#birthday_label").css("display","block");
                 return false;
             } else {
                 $("#birthday").css("border", "");
+                $("#birthday_label").css("display","none");
                 return true;
             }
         }
@@ -110,9 +122,11 @@
             var check = $("#check").val();
             if (!check) {
                 $("#check").css("border", "1px solid red");
+                $("#check_label").css("display","block");
                 return false;
             } else {
                 $("#check").css("border", "");
+                $("#check_label").css("display","none");
                 return true;
             }
         }
@@ -122,8 +136,8 @@
             $("#registerForm").submit(function () {
                 // 1.发送数据到服务器
                 if (checkUsername() && checkPassword() && checkEmail() && checkTelephone() && checkBirthday() && checkCheck()) {
-                    // 校验通过，发送ajax请求，提交表单的数据 username=zhangsan$password=123456
-                    $.post("user/regist", $(this).serialize(), function (data) {
+                    // 校验通过，发送ajax请求，提交表单的数据
+                    $.post("user/regist", $("#registerForm").serialize(), function (data) {
                         // 处理服务器响应的数据 data {flag:true,errorMsg:"注册失败！"}
                         if (data.flag) {
                             // 注册成功，跳转成功页面
@@ -162,7 +176,6 @@
             <p>USER REGISTER</p>
         </div>
         <div class="rg_form_center">
-            <div id="errorMsg" style="color:red;text-align: center;"></div>
             <!--注册表单-->
             <form id="registerForm" action="/registUserServlet">
                 <!--提交处理请求的标识符-->
@@ -175,6 +188,9 @@
                         <td class="td_right">
                             <input type="text" id="username" name="username" placeholder="请输入账号">
                         </td>
+                        <td class="td_right">
+                            <label id="username_label" class="regist_label" style="display: none;">用户名不能为空</label>
+                        </td>
                     </tr>
                     <tr>
                         <td class="td_left">
@@ -182,6 +198,9 @@
                         </td>
                         <td class="td_right">
                             <input type="text" id="password" name="password" placeholder="请输入密码">
+                        </td>
+                        <td class="td_right">
+                            <label id="password_label" class="regist_label" style="display: none;">密码不能为空</label>
                         </td>
                     </tr>
                     <tr>
@@ -191,6 +210,9 @@
                         <td class="td_right">
                             <input type="text" id="email" name="email" placeholder="请输入Email">
                         </td>
+                        <td class="td_right">
+                            <label id="email_label" class="regist_label" style="display: none;">Email不能为空</label>
+                        </td>
                     </tr>
                     <tr>
                         <td class="td_left">
@@ -199,6 +221,9 @@
                         <td class="td_right">
                             <input type="text" id="name" name="name" placeholder="请输入真实姓名">
                         </td>
+                        <td class="td_right">
+                            <label id="name_label" class="regist_label" style="display: none;">姓名不能为空</label>
+                        </td>
                     </tr>
                     <tr>
                         <td class="td_left">
@@ -206,6 +231,9 @@
                         </td>
                         <td class="td_right">
                             <input type="text" id="telephone" name="telephone" placeholder="请输入您的手机号">
+                        </td>
+                        <td class="td_right">
+                            <label id="telephone_label" class="regist_label" style="display: none;">手机号不能为空</label>
                         </td>
                     </tr>
                     <tr>
@@ -224,6 +252,9 @@
                         <td class="td_right">
                             <input type="date" id="birthday" name="birthday" placeholder="年/月/日">
                         </td>
+                        <td class="td_right">
+                            <label id="birthday_label" class="regist_label" style="display: none;">出生日期不能为空</label>
+                        </td>
                     </tr>
                     <tr>
                         <td class="td_left">
@@ -239,13 +270,16 @@
                                 }
                             </script>
                         </td>
+                        <td class="td_right">
+                            <label id="check_label" class="regist_label" style="display: none;">验证码不能为空</label>
+                        </td>
                     </tr>
                     <tr>
                         <td class="td_left">
                         </td>
                         <td class="td_right check">
                             <input type="submit" class="submit" value="注册">
-                            <span id="msg" style="color: red;"></span>
+                            <span id="errorMsg" style="color: red;font-size: 12px;"></span>
                         </td>
                     </tr>
                 </table>
