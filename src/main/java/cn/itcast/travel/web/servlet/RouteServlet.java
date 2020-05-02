@@ -87,11 +87,12 @@ public class RouteServlet extends BaseServlet {
         // 2.调用serivce方法查询route对象
         Route route = routeService.findOne(rid);
         // 3.将route对象转换为json，写回客户端
-        writeValue(route,response);
+        writeValue(route, response);
     }
 
     /**
      * 判断当前登录用户是否收藏过该路线
+     *
      * @param request
      * @param response
      * @throws ServletException
@@ -103,10 +104,10 @@ public class RouteServlet extends BaseServlet {
         // 2.从session中获取user对象
         User user = (User) request.getSession().getAttribute("user");
         int uid;
-        if (user == null){
+        if (user == null) {
             // 用户已登录
             uid = 0;
-        }else{
+        } else {
             // 用户未登录
             uid = user.getUid();
         }
@@ -115,11 +116,12 @@ public class RouteServlet extends BaseServlet {
         boolean flag = favoriteService.isFavorite(rid, uid);
 
         // 3.将对象转换为json，写回客户端
-        writeValue(flag,response);
+        writeValue(flag, response);
     }
 
     /**
      * 添加收藏操作
+     *
      * @param request
      * @param response
      * @throws ServletException
@@ -131,10 +133,10 @@ public class RouteServlet extends BaseServlet {
         // 2.从session中获取user对象
         User user = (User) request.getSession().getAttribute("user");
         int uid;
-        if (user == null){
+        if (user == null) {
             // 用户已登录
             return;
-        }else{
+        } else {
             // 用户未登录
             uid = user.getUid();
         }
@@ -145,6 +147,7 @@ public class RouteServlet extends BaseServlet {
 
     /**
      * 人气旅游
+     *
      * @param request
      * @param response
      * @throws ServletException
@@ -152,11 +155,12 @@ public class RouteServlet extends BaseServlet {
      */
     public void popularTravel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Route> routes = routeService.popularTravel();
-        writeValue(routes,response);
+        writeValue(routes, response);
     }
 
     /**
      * 最新旅游
+     *
      * @param request
      * @param response
      * @throws ServletException
@@ -164,11 +168,12 @@ public class RouteServlet extends BaseServlet {
      */
     public void newestTravel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Route> routes = routeService.newestTravel();
-        writeValue(routes,response);
+        writeValue(routes, response);
     }
 
     /**
      * 主题旅游
+     *
      * @param request
      * @param response
      * @throws ServletException
@@ -176,6 +181,32 @@ public class RouteServlet extends BaseServlet {
      */
     public void themeTravel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Route> routes = routeService.themeTravel();
-        writeValue(routes,response);
+        writeValue(routes, response);
+    }
+
+    /**
+     * 国内游
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void inTravel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Route> routes = routeService.inTravel();
+        writeValue(routes, response);
+    }
+
+    /**
+     * 国外游、境外游
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void outTravel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Route> routes = routeService.outTravel();
+        writeValue(routes, response);
     }
 }

@@ -114,4 +114,16 @@ public class RouteDaoImpl implements RouteDao {
         String sql = "SELECT * FROM tab_route WHERE isThemeTour = '1' ORDER BY rdate DESC LIMIT 0 , 4";
         return template.query(sql, new BeanPropertyRowMapper<Route>(Route.class));
     }
+
+    /**
+     * 根据cid查询路线信息
+     *
+     * @param cid
+     * @return
+     */
+    @Override
+    public List<Route> findByCid(int cid) {
+        String sql = "select * from tab_route where cid = ? order by rdate desc limit 0 , 6";
+        return template.query(sql,new BeanPropertyRowMapper<Route>(Route.class),cid);
+    }
 }

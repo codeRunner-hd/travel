@@ -27,4 +27,10 @@ public class CategoryDaoImpl implements CategoryDao {
         List<Category> list = template.query(sql, new BeanPropertyRowMapper<Category>(Category.class));
         return list;
     }
+
+    @Override
+    public Category findByName(String cname) {
+        String sql = "select * from tab_category where cname = ?";
+        return template.queryForObject(sql,new BeanPropertyRowMapper<Category>(Category.class),cname);
+    }
 }

@@ -25,7 +25,12 @@
     <![endif]-->
     <script>
         $(function () {
+            // 默认展示人气旅游
             popularTravel();
+            // 默认展示国内游
+            inTravel();
+            // 默认展示出境游
+            outTravel();
         });
 
         // 人气旅游展示
@@ -88,6 +93,48 @@
                 }
                 div_strs += '</div>';
                 $("#theme").html(div_strs);
+            });
+        }
+
+        // 国内游
+        function inTravel() {
+            $.get("route/inTravel",{},function (list) {
+                var div_strs = '<div class="row">';
+                for (var i = 0; i < list.length; i++) {
+                    var div_str = '<div class="col-md-4">\n' +
+                '                        <a href="route_detail.html?rid='+list[i].rid+'">\n' +
+                '                            <img src="'+list[i].rimage+'" alt="">\n' +
+                '                            <div class="has_border">\n' +
+                '                                <h3>'+list[i].rname+'</h3>\n' +
+                '                                <div class="price">网付价<em>￥</em><strong>'+list[i].price+'</strong><em>起</em></div>\n' +
+                '                            </div>\n' +
+                '                        </a>\n' +
+                '                    </div>';
+                    div_strs += div_str;
+                }
+                div_strs += '</div>';
+                $("#inTravel").html(div_strs);
+            });
+        }
+
+        // 国外游、境外游
+        function outTravel() {
+            $.get("route/outTravel",{},function (list) {
+                var div_strs = '<div class="row">';
+                for (var i = 0; i < list.length; i++) {
+                    var div_str = '<div class="col-md-4">\n' +
+                        '                        <a href="route_detail.html?rid='+list[i].rid+'">\n' +
+                        '                            <img src="'+list[i].rimage+'" alt="">\n' +
+                        '                            <div class="has_border">\n' +
+                        '                                <h3>'+list[i].rname+'</h3>\n' +
+                        '                                <div class="price">网付价<em>￥</em><strong>'+list[i].price+'</strong><em>起</em></div>\n' +
+                        '                            </div>\n' +
+                        '                        </a>\n' +
+                        '                    </div>';
+                    div_strs += div_str;
+                }
+                div_strs += '</div>';
+                $("#outTravel").html(div_strs);
             });
         }
     </script>
@@ -163,84 +210,10 @@
                     <!--展示人气旅游信息-->
                 </div>
                 <div role="tabpanel" class="tab-pane" id="newest">
-                    <!--<div class="row">
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_1.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_1.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_1.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_1.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>-->
+                    <!--展示最新旅游信息-->
                 </div>
                 <div role="tabpanel" class="tab-pane" id="theme">
-                    <!--<div class="row">
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_2.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_2.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_2.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_2.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>-->
+                    <!--展示主题旅游信息-->
                 </div>
             </div>
         </div>
@@ -258,8 +231,8 @@
             <div class="guonei_l">
                 <img src="images/guonei_1.jpg" alt="">
             </div>
-            <div class="guone_r">
-                <div class="row">
+            <div class="guone_r" id="inTravel">
+                <!--<div class="row">
                     <div class="col-md-4">
                         <a href="route_detail.html">
                             <img src="images/jiangxuan_4.jpg" alt="">
@@ -314,7 +287,7 @@
                             </div>
                         </a>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </section>
@@ -331,8 +304,8 @@
             <div class="guonei_l">
                 <img src="images/jiangwai_1.jpg" alt="">
             </div>
-            <div class="guone_r">
-                <div class="row">
+            <div class="guone_r" id="outTravel">
+                <!--<div class="row">
                     <div class="col-md-4">
                         <a href="route_detail.html">
                             <img src="images/jiangxuan_4.jpg" alt="">
@@ -387,7 +360,7 @@
                             </div>
                         </a>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </section>

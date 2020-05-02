@@ -15,4 +15,6 @@ public interface CategoryDao {
      * @return
      */
     public List<Category> findAll();
+
+    public Category findByName(String cname);
 }

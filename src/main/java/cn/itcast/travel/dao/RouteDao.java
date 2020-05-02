@@ -49,4 +49,12 @@ public interface RouteDao {
      * @return
      */
     public List<Route> findByTheme();
+
+    /**
+     * 根据cid查询路线信息
+     *
+     * @param cid
+     * @return
+     */
+    public List<Route> findByCid(int cid);
 }

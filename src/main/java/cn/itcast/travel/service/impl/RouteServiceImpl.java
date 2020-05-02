@@ -1,13 +1,7 @@
 package cn.itcast.travel.service.impl;
 
-import cn.itcast.travel.dao.FavoriteDao;
-import cn.itcast.travel.dao.RouteDao;
-import cn.itcast.travel.dao.RouteImgDao;
-import cn.itcast.travel.dao.SellerDao;
-import cn.itcast.travel.dao.impl.FavoriteDaoImpl;
-import cn.itcast.travel.dao.impl.RouteDaoImpl;
-import cn.itcast.travel.dao.impl.RouteImgDaoImpl;
-import cn.itcast.travel.dao.impl.SellerDaoImpl;
+import cn.itcast.travel.dao.*;
+import cn.itcast.travel.dao.impl.*;
 import cn.itcast.travel.domain.*;
 import cn.itcast.travel.service.RouteService;
 
@@ -23,6 +17,7 @@ public class RouteServiceImpl implements RouteService {
     private RouteImgDao routeImgDao = new RouteImgDaoImpl();
     private SellerDao sellerDao = new SellerDaoImpl();
     private FavoriteDao favoriteDao = new FavoriteDaoImpl();
+    private CategoryDao categoryDao = new CategoryDaoImpl();
 
     /**
      * 根据类别进行线路分页查询
@@ -120,6 +115,42 @@ public class RouteServiceImpl implements RouteService {
     @Override
     public List<Route> themeTravel() {
         List<Route> routes = routeDao.findByTheme();
+        List<Route> routes_list = new ArrayList<>();
+        for (int i = 0; i < routes.size(); i++) {
+            Route route = favoriteDao.findByRid(routes.get(i).getRid());
+            routes_list.add(route);
+        }
+        return routes_list;
+    }
+
+    /**
+     * 国内游
+     *
+     * @return
+     */
+    @Override
+    public List<Route> inTravel() {
+        String cname = "国内游";
+        Category category = categoryDao.findByName(cname);
+        List<Route> routes = routeDao.findByCid(category.getCid());
+        List<Route> routes_list = new ArrayList<>();
+        for (int i = 0; i < routes.size(); i++) {
+            Route route = favoriteDao.findByRid(routes.get(i).getRid());
+            routes_list.add(route);
+        }
+        return routes_list;
+    }
+
+    /**
+     * 国内游、境外游
+     *
+     * @return
+     */
+    @Override
+    public List<Route> outTravel() {
+        String cname = "出境游";
+        Category category = categoryDao.findByName(cname);
+        List<Route> routes = routeDao.findByCid(category.getCid());
         List<Route> routes_list = new ArrayList<>();
         for (int i = 0; i < routes.size(); i++) {
             Route route = favoriteDao.findByRid(routes.get(i).getRid());

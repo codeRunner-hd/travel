@@ -51,4 +51,16 @@ public interface RouteService {
      * @return
      */
     public List<Route> themeTravel();
+
+    /**
+     * 国内游
+     * @return
+     */
+    public List<Route> inTravel();
+
+    /**
+     * 国内游、境外游
+     * @return
+     */
+    public List<Route> outTravel();
 }
