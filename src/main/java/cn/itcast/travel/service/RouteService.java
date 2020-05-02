@@ -3,6 +3,8 @@ package cn.itcast.travel.service;
 import cn.itcast.travel.domain.PageBean;
 import cn.itcast.travel.domain.Route;
 
+import java.util.List;
+
 /**
  * 线路
  *
@@ -23,8 +25,30 @@ public interface RouteService {
 
     /**
      * 根据id查询一个route对象
+     *
      * @param rid
      * @return
      */
     public Route findOne(String rid);
+
+    /**
+     * 查询人气旅游的前4条数据
+     *
+     * @return
+     */
+    public List<Route> popularTravel();
+
+    /**
+     * 查询最新旅游的前4条数据
+     *
+     * @return
+     */
+    public List<Route> newestTravel();
+
+    /**
+     * 查询主题旅游的前4条数据
+     *
+     * @return
+     */
+    public List<Route> themeTravel();
 }

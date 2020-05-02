@@ -1,5 +1,10 @@
 package cn.itcast.travel.dao;
 
+import cn.itcast.travel.domain.Favorite;
+import cn.itcast.travel.domain.Route;
+
+import java.util.List;
+
 /**
  * @Author: Admin-han
  * @DateTime: 2020/5/1 10:04
@@ -28,4 +33,17 @@ public interface FavoriteDao {
      * @param uid
      */
     public void addFavorite(String rid, int uid);
+
+    /**
+     * 根据收藏次数查询前4条数据
+     * @return
+     */
+    List<Route> findRids();
+
+    /**
+     * 根据rid查询route对象
+     * @param rid
+     * @return
+     */
+    Route findByRid(int rid);
 }

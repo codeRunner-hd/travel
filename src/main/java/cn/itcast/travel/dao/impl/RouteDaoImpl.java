@@ -31,15 +31,15 @@ public class RouteDaoImpl implements RouteDao {
         // 创建集合用来存放条件属性值
         List params = new ArrayList<>();
         // 判断参数是否有值
-        if (cid != 0){
+        if (cid != 0) {
             sb.append(" and cid = ? ");
             // 往集合中添加？对应的属性值
             params.add(cid);
         }
-        if (rname != null && rname.length() > 0 && !"null".equals(rname)){
+        if (rname != null && rname.length() > 0 && !"null".equals(rname)) {
             sb.append(" and rname like ? ");
 
-            params.add("%"+rname+"%");
+            params.add("%" + rname + "%");
         }
         sql = sb.toString();
         return template.queryForObject(sql, Integer.class, params.toArray());
@@ -61,15 +61,15 @@ public class RouteDaoImpl implements RouteDao {
         // 创建集合用来存放条件属性值
         List params = new ArrayList<>();
         // 判断参数是否有值
-        if (cid != 0){
+        if (cid != 0) {
             sb.append(" and cid = ? ");
             // 往集合中添加？对应的属性值
             params.add(cid);
         }
-        if (rname != null && rname.length() > 0 && !"null".equals(rname)){
+        if (rname != null && rname.length() > 0 && !"null".equals(rname)) {
             sb.append(" and rname like ? ");
 
-            params.add("%"+rname+"%");
+            params.add("%" + rname + "%");
         }
         // 分页条件
         sb.append(" limit ? , ?");
@@ -90,6 +90,28 @@ public class RouteDaoImpl implements RouteDao {
     @Override
     public Route findOne(int rid) {
         String sql = "select * from tab_route where rid = ?";
-        return template.queryForObject(sql,new BeanPropertyRowMapper<Route>(Route.class),rid);
+        return template.queryForObject(sql, new BeanPropertyRowMapper<Route>(Route.class), rid);
+    }
+
+    /**
+     * 查询最新旅游路线
+     *
+     * @return
+     */
+    @Override
+    public List<Route> findByRdate() {
+        String sql = "select rid,rdate from tab_route order by rdate desc limit 0 , 4";
+        return template.query(sql, new BeanPropertyRowMapper<Route>(Route.class));
+    }
+
+    /**
+     * 查询主题旅游路线
+     *
+     * @return
+     */
+    @Override
+    public List<Route> findByTheme() {
+        String sql = "SELECT * FROM tab_route WHERE isThemeTour = '1' ORDER BY rdate DESC LIMIT 0 , 4";
+        return template.query(sql, new BeanPropertyRowMapper<Route>(Route.class));
     }
 }

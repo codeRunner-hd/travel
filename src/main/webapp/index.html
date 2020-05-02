@@ -23,6 +23,74 @@
     <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script>
+        $(function () {
+            popularTravel();
+        });
+
+        // 人气旅游展示
+        function popularTravel() {
+            $.get("route/popularTravel",{},function (list) {
+                var div_strs = '<div class="row">';
+                for (var i = 0; i < list.length; i++) {
+                    var div_str = '<div class="col-md-3">\n' +
+                        '                            <a href="javascript:;">\n' +
+                        '                                <img src="'+list[i].rimage+'" alt="">\n' +
+                        '                                <div class="has_border">\n' +
+                        '                                    <h3>'+list[i].rname+'</h3>\n' +
+                        '                                    <div class="price">网付价<em>￥</em><strong>'+list[i].price+'</strong><em>起</em></div>\n' +
+                        '                                </div>\n' +
+                        '                            </a>\n' +
+                        '                        </div>';
+                    div_strs += div_str;
+                }
+                div_strs += '</div>';
+                $("#popularity").html(div_strs);
+            });
+        }
+
+        // 最新旅游
+        function newestTravel() {
+            $.get("route/newestTravel",{},function (list) {
+                var div_strs = '<div class="row">';
+                for (var i = 0; i < list.length; i++) {
+                    var div_str = '<div class="col-md-3">\n' +
+                        '                            <a href="javascript:;">\n' +
+                        '                                <img src="'+list[i].rimage+'" alt="">\n' +
+                        '                                <div class="has_border">\n' +
+                        '                                    <h3>'+list[i].rname+'</h3>\n' +
+                        '                                    <div class="price">网付价<em>￥</em><strong>'+list[i].price+'</strong><em>起</em></div>\n' +
+                        '                                </div>\n' +
+                        '                            </a>\n' +
+                        '                        </div>';
+                    div_strs += div_str;
+                }
+                div_strs += '</div>';
+                $("#newest").html(div_strs);
+            });
+        }
+
+        // 主题旅游
+        function themeTravel() {
+            $.get("route/themeTravel",{},function (list) {
+                var div_strs = '<div class="row">';
+                for (var i = 0; i < list.length; i++) {
+                    var div_str = '<div class="col-md-3">\n' +
+                        '                            <a href="javascript:;">\n' +
+                        '                                <img src="'+list[i].rimage+'" alt="">\n' +
+                        '                                <div class="has_border">\n' +
+                        '                                    <h3>'+list[i].rname+'</h3>\n' +
+                        '                                    <div class="price">网付价<em>￥</em><strong>'+list[i].price+'</strong><em>起</em></div>\n' +
+                        '                                </div>\n' +
+                        '                            </a>\n' +
+                        '                        </div>';
+                    div_strs += div_str;
+                }
+                div_strs += '</div>';
+                $("#theme").html(div_strs);
+            });
+        }
+    </script>
 </head>
 <body>
 <!--引入头部-->
@@ -73,17 +141,17 @@
             <ul class="jx_tabs" role="tablist">
                 <li role="presentation" class="active">
                     <span>
-                        <a href="#popularity" aria-controls="popularity" role="tab" data-toggle="tab">人气旅游</a>
+                        <a href="#popularity" onclick="popularTravel();" aria-controls="popularity" role="tab" data-toggle="tab">人气旅游</a>
                     </span>
                 </li>
                 <li role="presentation">
                     <span>
-                        <a href="#newest" aria-controls="newest" role="tab" data-toggle="tab">最新旅游</a>
+                        <a href="#newest" onclick="newestTravel();" aria-controls="newest" role="tab" data-toggle="tab">最新旅游</a>
                     </span>
                 </li>
                 <li role="presentation">
                     <span>
-                        <a href="#theme" aria-controls="theme" role="tab" data-toggle="tab">主题旅游</a>
+                        <a href="#theme" onclick="themeTravel();" aria-controls="theme" role="tab" data-toggle="tab">主题旅游</a>
                     </span>
                 </li>
             </ul>
@@ -92,47 +160,10 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="popularity">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_4.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_4.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_4.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="javascript:;">
-                                <img src="images/jiangxuan_4.jpg" alt="">
-                                <div class="has_border">
-                                    <h3>上海直飞三亚5天4晚自由行(春节预售+亲子/蜜月/休闲游首选+豪华酒店任选+接送机)</h3>
-                                    <div class="price">网付价<em>￥</em><strong>889</strong><em>起</em></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                    <!--展示人气旅游信息-->
                 </div>
                 <div role="tabpanel" class="tab-pane" id="newest">
-                    <div class="row">
+                    <!--<div class="row">
                         <div class="col-md-3">
                             <a href="javascript:;">
                                 <img src="images/jiangxuan_1.jpg" alt="">
@@ -169,10 +200,10 @@
                                 </div>
                             </a>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
                 <div role="tabpanel" class="tab-pane" id="theme">
-                    <div class="row">
+                    <!--<div class="row">
                         <div class="col-md-3">
                             <a href="javascript:;">
                                 <img src="images/jiangxuan_2.jpg" alt="">
@@ -209,7 +240,7 @@
                                 </div>
                             </a>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>

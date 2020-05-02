@@ -8,12 +8,10 @@ import cn.itcast.travel.dao.impl.FavoriteDaoImpl;
 import cn.itcast.travel.dao.impl.RouteDaoImpl;
 import cn.itcast.travel.dao.impl.RouteImgDaoImpl;
 import cn.itcast.travel.dao.impl.SellerDaoImpl;
-import cn.itcast.travel.domain.PageBean;
-import cn.itcast.travel.domain.Route;
-import cn.itcast.travel.domain.RouteImg;
-import cn.itcast.travel.domain.Seller;
+import cn.itcast.travel.domain.*;
 import cn.itcast.travel.service.RouteService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -80,5 +78,53 @@ public class RouteServiceImpl implements RouteService {
         route.setCount(count);
 
         return route;
+    }
+
+    /**
+     * 根据收藏次数查询前4条数据的rid
+     *
+     * @return
+     */
+    @Override
+    public List<Route> popularTravel() {
+        List<Route> fav_list = favoriteDao.findRids();
+        List<Route> routes_list = new ArrayList<>();
+        for (int i = 0; i < fav_list.size(); i++) {
+            Route route = favoriteDao.findByRid(fav_list.get(i).getRid());
+            routes_list.add(route);
+        }
+        return routes_list;
+    }
+
+    /**
+     * 查询最新旅游的前4条数据
+     *
+     * @return
+     */
+    @Override
+    public List<Route> newestTravel() {
+        List<Route> routes = routeDao.findByRdate();
+        List<Route> routes_list = new ArrayList<>();
+        for (int i = 0; i < routes.size(); i++) {
+            Route route = favoriteDao.findByRid(routes.get(i).getRid());
+            routes_list.add(route);
+        }
+        return routes_list;
+    }
+
+    /**
+     * 查询主题旅游的前4条数据
+     *
+     * @return
+     */
+    @Override
+    public List<Route> themeTravel() {
+        List<Route> routes = routeDao.findByTheme();
+        List<Route> routes_list = new ArrayList<>();
+        for (int i = 0; i < routes.size(); i++) {
+            Route route = favoriteDao.findByRid(routes.get(i).getRid());
+            routes_list.add(route);
+        }
+        return routes_list;
     }
 }

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @Author: Admin-han
@@ -118,7 +119,7 @@ public class RouteServlet extends BaseServlet {
     }
 
     /**
-     * 添加收藏操
+     * 添加收藏操作
      * @param request
      * @param response
      * @throws ServletException
@@ -140,5 +141,41 @@ public class RouteServlet extends BaseServlet {
 
         // 3.调用serivce方法添加收藏
         favoriteService.addFavorite(rid, uid);
+    }
+
+    /**
+     * 人气旅游
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void popularTravel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Route> routes = routeService.popularTravel();
+        writeValue(routes,response);
+    }
+
+    /**
+     * 最新旅游
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void newestTravel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Route> routes = routeService.newestTravel();
+        writeValue(routes,response);
+    }
+
+    /**
+     * 主题旅游
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void themeTravel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Route> routes = routeService.themeTravel();
+        writeValue(routes,response);
     }
 }

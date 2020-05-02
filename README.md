@@ -4,4 +4,4 @@
 
 #### 项目所运用的技术:Servlet + Mysql + Redis + Maven + Git + Ajax + Jquery + Html + Css
 
-#### 本项目目前还在逐渐完善中
+#### 本项目基本功能已完成
