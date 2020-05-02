@@ -227,7 +227,9 @@
             if (user){
                 // 用户已登录，调用添加功能
                 $.get("route/addFavorite",{rid:rid},function () {
-
+                    window.location.reload();
+                    // 每次点击页面后，都滚动到顶部开始浏览
+                    window.scrollTo(0, 0);
                 });
             }else{
                 // 用户未登录
