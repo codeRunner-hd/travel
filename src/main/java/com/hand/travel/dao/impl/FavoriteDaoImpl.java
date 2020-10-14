@@ -8,7 +8,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import javax.sql.DataSource;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +16,6 @@ import java.util.List;
  * @DateTime: 2020/5/1 10:05
  */
 public class FavoriteDaoImpl implements FavoriteDao {
-    DataSource dataSource;
     private final JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
 
     /**
@@ -32,9 +30,9 @@ public class FavoriteDaoImpl implements FavoriteDao {
         Favorite favorite = null;
         try {
             String sql = "select * from tab_favorite where rid = ? and uid = ?";
-            favorite = template.queryForObject(sql, new BeanPropertyRowMapper<Favorite>(Favorite.class), rid, uid);
-        } catch (DataAccessException e) {
-            e.printStackTrace();
+            favorite = template.queryForObject(sql, new BeanPropertyRowMapper<>(Favorite.class), rid, uid);
+        } catch (DataAccessException ignored) {
+            // Incorrect result size: expected 1, actual 0
         }
         return favorite != null;
     }

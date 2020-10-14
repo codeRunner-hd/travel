@@ -123,9 +123,9 @@
                     var route_li = '<li>\n' +
                 '                        <div class="img"><img src="' + route.rimage + '" style="width: 299px;"></div>\n' +
                 '                        <div class="text1">\n' +
-                '                            <p>' + route.rname + '</p>\n' +
+                '                            <p style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;"><a href="route_detail.html?rid='+route.rid+'" title="'+ route.rname +'">' + route.rname + '</a></p>\n' +
                 '                            <br/>\n' +
-                '                            <p>' + route.routeIntroduce + '</p>\n' +
+                '                            <p style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;"><a href="javascript:void(0);" style="color: gray;" title="'+ route.routeIntroduce +'">' + route.routeIntroduce + '</a></p>\n' +
                 '                        </div>\n' +
                 '                        <div class="price">\n' +
                 '                            <p class="price_num">\n' +

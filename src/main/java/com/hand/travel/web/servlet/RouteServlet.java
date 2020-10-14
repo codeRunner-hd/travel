@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -41,15 +42,10 @@ public class RouteServlet extends BaseServlet {
         // 接受搜索框名称参数rname
         String rname = request.getParameter("rname");
 
-        if (rname != null && rname.length() > 0) {
-            // 处理rname乱码的问题
-            rname = new String(rname.getBytes("iso-8859-1"), "utf-8");
-        }
-
         // 2.处理参数
         int cid, currentPage, pageSize = 0;
         // 若商品类别编号不为空，则进行强转
-        if (cidStr != null && cidStr.length() > 0) {
+        if (!"".equals(cidStr) && !"null".equals(cidStr) && cidStr != null && cidStr.length() > 0) {
             cid = Integer.parseInt(cidStr);
         } else {
             cid = 0;
