@@ -14,7 +14,12 @@ public interface CategoryDao {
      *
      * @return
      */
-    public List<Category> findAll();
+    List<Category> findAll();
 
-    public Category findByName(String cname);
+    /**
+     * 根据目录查询
+     * @param cname
+     * @return
+     */
+    Category findByName(String cname);
 }

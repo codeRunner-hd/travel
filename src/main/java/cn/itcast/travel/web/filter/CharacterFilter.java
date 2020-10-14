@@ -12,7 +12,7 @@ import java.io.IOException;
  * @author Admin
  */
 @WebFilter("/*")
-public class CharchaterFilter implements Filter {
+public class CharacterFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 

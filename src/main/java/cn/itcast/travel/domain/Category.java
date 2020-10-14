@@ -11,41 +11,41 @@ public class Category implements Serializable {
     /**
      * 分类id
      */
-    private int cid;
+    private int categoryId;
     /**
      * 分类名称
      */
-    private String cname;
+    private String categoryName;
 
     public Category() {
     }
 
-    public Category(int cid, String cname) {
-        this.cid = cid;
-        this.cname = cname;
+    public Category(int categoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
     }
 
     @Override
     public String toString() {
         return "Category{" +
-                "cid=" + cid +
-                ", cname='" + cname + '\'' +
+                "cid=" + categoryId +
+                ", cname='" + categoryName + '\'' +
                 '}';
     }
 
-    public int getCid() {
-        return cid;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCid(int cid) {
-        this.cid = cid;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public String getCname() {
-        return cname;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCname(String cname) {
-        this.cname = cname;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

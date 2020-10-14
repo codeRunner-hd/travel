@@ -14,7 +14,7 @@ import java.util.Properties;
  * @author Admin
  */
 public final class JedisUtil {
-    private static JedisPool jedisPool;
+    private static final JedisPool JEDIS_POOL;
 
     static {
         //读取配置文件
@@ -33,14 +33,14 @@ public final class JedisUtil {
         config.setMaxIdle(Integer.parseInt(pro.getProperty("maxIdle")));
 
         //初始化JedisPool
-        jedisPool = new JedisPool(config, pro.getProperty("host"), Integer.parseInt(pro.getProperty("port")));
+        JEDIS_POOL = new JedisPool(config, pro.getProperty("host"), Integer.parseInt(pro.getProperty("port")));
     }
 
     /**
      * 获取连接方法
      */
     public static Jedis getJedis() {
-        return jedisPool.getResource();
+        return JEDIS_POOL.getResource();
     }
 
     /**

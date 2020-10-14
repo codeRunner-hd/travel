@@ -14,9 +14,10 @@ public interface RouteDao {
      * 根据cid查询总记录数
      *
      * @param cid
+     * @param rname
      * @return
      */
-    public int findTotalCount(int cid, String rname);
+    int findTotalCount(int cid, String rname);
 
     /**
      * 根据cid,start,pageSize查询当前页面的数据集合
@@ -24,9 +25,10 @@ public interface RouteDao {
      * @param cid
      * @param start
      * @param pageSize
+     * @param rname
      * @return
      */
-    public List<Route> findByPage(int cid, int start, int pageSize, String rname);
+    List<Route> findByPage(int cid, int start, int pageSize, String rname);
 
     /**
      * 根据id查询一个route对象
@@ -41,7 +43,7 @@ public interface RouteDao {
      *
      * @return
      */
-    public List<Route> findByRdate();
+    public List<Route> findRouteByDate();
 
     /**
      * 查询主题旅游路线

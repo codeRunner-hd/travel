@@ -4,12 +4,10 @@ import cn.itcast.travel.domain.ResultInfo;
 import cn.itcast.travel.domain.User;
 import cn.itcast.travel.service.UserService;
 import cn.itcast.travel.service.impl.UserServiceImpl;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -24,10 +22,11 @@ import java.util.Map;
 @WebServlet("/user/*")
 public class UserServlet extends BaseServlet {
 
-    private UserService userService = new UserServiceImpl();
+    private final UserService userService = new UserServiceImpl();
 
     /**
      * 注册功能
+     *
      * @param request
      * @param response
      * @throws ServletException
@@ -40,10 +39,10 @@ public class UserServlet extends BaseServlet {
 
         // 从session中获取验证码
         HttpSession session = request.getSession();
-        String checkcodeServer = (String) session.getAttribute("CHECKCODE_SERVER");
+        String checkCodeServer = (String) session.getAttribute("CHECKCODE_SERVER");
         // 校验验证码之后立马进行从session中清楚验证码，保证验证码只能使用一次
         session.removeAttribute("CHECKCODE_SERVER");
-        if (checkcodeServer == null || !checkcodeServer.equalsIgnoreCase(check)){
+        if (checkCodeServer == null || !checkCodeServer.equalsIgnoreCase(check)) {
             // 验证码错误
             // 提示注册失败
             info.setFlag(false);
@@ -62,18 +61,18 @@ public class UserServlet extends BaseServlet {
         // 2、封装对象
         User user = new User();
         try {
-            BeanUtils.populate(user,map);
+            BeanUtils.populate(user, map);
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
         // 3、调用service完成注册
         //UserService userService = new UserServiceImpl();
-        boolean flag = userService.regist(user);
+        boolean flag = userService.register(user);
         // 4、响应结果
-        if (flag){
+        if (flag) {
             // 注册成功
             info.setFlag(true);
-        }else{
+        } else {
             // 注册失败
             info.setFlag(false);
             info.setErrorMsg("对不起，用户已存在！");
@@ -86,6 +85,7 @@ public class UserServlet extends BaseServlet {
 
     /**
      * 登录功能
+     *
      * @param request
      * @param response
      * @throws ServletException
@@ -96,22 +96,22 @@ public class UserServlet extends BaseServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String check = request.getParameter("check");
-        if (username == null || "".equals(username)){
+        if (username == null || "".equals(username)) {
             info.setErrorMsg("用户名不能为空");
-        }else if (password == null || "".equals(password)){
+        } else if (password == null || "".equals(password)) {
             info.setErrorMsg("密码不能为空");
-        }else if (check == null || "".equals(check)){
+        } else if (check == null || "".equals(check)) {
             info.setErrorMsg("验证码不能为空");
-        }else{
+        } else {
             // 调用验证码方法，如果不正确就不往下进行了
-            checkCode(info, check,request,response);
+            checkCode(info, check, request, response);
 
             // 1、获取用户名和密码数据
             Map<String, String[]> map = request.getParameterMap();
             // 2、封装User对象
             User user = new User();
             try {
-                BeanUtils.populate(user,map);
+                BeanUtils.populate(user, map);
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }
@@ -119,33 +119,34 @@ public class UserServlet extends BaseServlet {
             User u = userService.login(user);
 
             // 4、判断用户对象是否为null
-            if (u == null){
+            if (u == null) {
                 // 用户名或密码错误
                 info.setFlag(false);
                 info.setErrorMsg("用户名或密码错误！");
             }
             // 5、判断用户是否激活
-            if (u != null && !"Y".equals(u.getStatus())){
+            if (u != null && !"Y".equals(u.getStatus())) {
                 // 用户尚未激活
                 info.setFlag(false);
                 info.setErrorMsg("用户尚未激活，请激活");
             }
             // 6、判断用户登录成功
-            if (u != null && "Y".equals(u.getStatus())){
+            if (u != null && "Y".equals(u.getStatus())) {
                 // 登录成功
                 info.setFlag(true);
 
                 // 将查询到的用户存到session中，便于读取用户名，展示到首页
-                request.getSession().setAttribute("user",u);
+                request.getSession().setAttribute("user", u);
             }
         }
 
         // 将info序列化为json，并且写回客户端
-        writeValue(info,response);
+        writeValue(info, response);
     }
 
     /**
      * 查询单个用户功能
+     *
      * @param request
      * @param response
      * @throws ServletException
@@ -155,11 +156,12 @@ public class UserServlet extends BaseServlet {
         // 从session中获取登录用户
         Object user = request.getSession().getAttribute("user");
         // 将user序列化为json，并且写回客户端
-        writeValue(user,response);
+        writeValue(user, response);
     }
 
     /**
      * 退出功能
+     *
      * @param request
      * @param response
      * @throws ServletException
@@ -174,6 +176,7 @@ public class UserServlet extends BaseServlet {
 
     /**
      * 激活功能
+     *
      * @param request
      * @param response
      * @throws ServletException
@@ -182,16 +185,16 @@ public class UserServlet extends BaseServlet {
     public void active(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 1、获取激活码
         String code = request.getParameter("code");
-        if (code != null){
+        if (code != null) {
             // 2、调用service激活方法
             //UserService userService = new UserServiceImpl();
             boolean flag = userService.active(code);
             // 3、判断标记
             String msg = "";
-            if (flag){
+            if (flag) {
                 // 激活成功
                 msg = "激活成功，请<a href='login.html'>登录</a>";
-            }else{
+            } else {
                 // 激活失败
                 msg = "激活失败，请检查网络或联系管理员！";
             }

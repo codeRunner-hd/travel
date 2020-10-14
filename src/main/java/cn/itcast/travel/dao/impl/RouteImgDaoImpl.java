@@ -13,7 +13,7 @@ import java.util.List;
  * @DateTime: 2020/4/30 17:29
  */
 public class RouteImgDaoImpl implements RouteImgDao {
-    private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
+    private final JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
 
     /**
      * 根据route对象中的id查询图片
@@ -24,6 +24,6 @@ public class RouteImgDaoImpl implements RouteImgDao {
     @Override
     public List<RouteImg> findByRid(int rid) {
         String sql = "select * from tab_route_img where rid = ?";
-        return template.query(sql, new BeanPropertyRowMapper<RouteImg>(RouteImg.class),rid);
+        return template.query(sql, new BeanPropertyRowMapper<RouteImg>(RouteImg.class), rid);
     }
 }

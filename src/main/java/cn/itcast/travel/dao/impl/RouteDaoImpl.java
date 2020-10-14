@@ -14,7 +14,7 @@ import java.util.List;
  * @DateTime: 2020/4/29 0:24
  */
 public class RouteDaoImpl implements RouteDao {
-    private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
+    private final JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
 
     /**
      * 根据cid查询总记录数
@@ -29,7 +29,7 @@ public class RouteDaoImpl implements RouteDao {
         StringBuilder sb = new StringBuilder(sql);
 
         // 创建集合用来存放条件属性值
-        List params = new ArrayList<>();
+        List<Object> params = new ArrayList<>();
         // 判断参数是否有值
         if (cid != 0) {
             sb.append(" and cid = ? ");
@@ -59,7 +59,7 @@ public class RouteDaoImpl implements RouteDao {
         StringBuilder sb = new StringBuilder(sql);
 
         // 创建集合用来存放条件属性值
-        List params = new ArrayList<>();
+        List<Object> params = new ArrayList<>();
         // 判断参数是否有值
         if (cid != 0) {
             sb.append(" and cid = ? ");
@@ -99,7 +99,7 @@ public class RouteDaoImpl implements RouteDao {
      * @return
      */
     @Override
-    public List<Route> findByRdate() {
+    public List<Route> findRouteByDate() {
         String sql = "select rid,rdate from tab_route order by rdate desc limit 0 , 4";
         return template.query(sql, new BeanPropertyRowMapper<Route>(Route.class));
     }
@@ -124,6 +124,6 @@ public class RouteDaoImpl implements RouteDao {
     @Override
     public List<Route> findByCid(int cid) {
         String sql = "select * from tab_route where cid = ? order by rdate desc limit 0 , 6";
-        return template.query(sql,new BeanPropertyRowMapper<Route>(Route.class),cid);
+        return template.query(sql, new BeanPropertyRowMapper<Route>(Route.class), cid);
     }
 }

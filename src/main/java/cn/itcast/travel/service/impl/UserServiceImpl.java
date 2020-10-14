@@ -12,7 +12,7 @@ import cn.itcast.travel.util.UuidUtil;
  */
 public class UserServiceImpl implements UserService {
 
-    private UserDao userDao = new UserDaoImpl();
+    private final UserDao userDao = new UserDaoImpl();
 
     /**
      * 注册用户
@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public boolean regist(User user) {
+    public boolean register(User user) {
         // 1、根据用户名查询用户对象
         User u = userDao.findByUsername(user.getUsername());
         // 判断u是否为null

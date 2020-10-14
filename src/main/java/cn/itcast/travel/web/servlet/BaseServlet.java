@@ -68,10 +68,10 @@ public class BaseServlet extends HttpServlet {
     public void checkCode(ResultInfo info, String check, HttpServletRequest request, HttpServletResponse response) throws IOException {
         // 从session中获取验证码
         HttpSession session = request.getSession();
-        String checkcodeServer = (String) session.getAttribute("CHECKCODE_SERVER");
+        String checkCodeServer = (String) session.getAttribute("CHECKCODE_SERVER");
         // 校验验证码之后立马进行从session中清楚验证码，保证验证码只能使用一次
         session.removeAttribute("CHECKCODE_SERVER");
-        if (checkcodeServer == null || !checkcodeServer.equalsIgnoreCase(check)){
+        if (checkCodeServer == null || !checkCodeServer.equalsIgnoreCase(check)) {
             // 验证码错误
             // 提示注册失败
             info.setFlag(false);
@@ -81,8 +81,7 @@ public class BaseServlet extends HttpServlet {
             String json = writeValueAsString(info, response);
             response.getWriter().write(json);
 
-            // 直接返回，不进行接下来的操作
-            return;
+            // 直接返回，不进行接下来的操作 return
         }
     }
 }

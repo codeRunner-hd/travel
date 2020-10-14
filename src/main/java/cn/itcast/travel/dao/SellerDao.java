@@ -9,6 +9,7 @@ import cn.itcast.travel.domain.Seller;
 public interface SellerDao {
     /**
      * 根据route对象中的sid查询商家信息
+     *
      * @param sid
      * @return
      */

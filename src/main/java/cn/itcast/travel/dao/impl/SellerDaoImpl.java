@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * @DateTime: 2020/4/30 17:34
  */
 public class SellerDaoImpl implements SellerDao {
-    private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
+    private final JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
 
     /**
      * 根据route对象中的sid查询商家信息
@@ -22,6 +22,6 @@ public class SellerDaoImpl implements SellerDao {
     @Override
     public Seller findBySid(int sid) {
         String sql = "select * from tab_seller where sid = ?";
-        return template.queryForObject(sql,new BeanPropertyRowMapper<Seller>(Seller.class),sid);
+        return template.queryForObject(sql, new BeanPropertyRowMapper<Seller>(Seller.class), sid);
     }
 }

@@ -19,7 +19,7 @@ import java.util.List;
  */
 @WebServlet("/category/*")
 public class CategoryServlet extends BaseServlet {
-    private CategoryService categoryService = new CategoryServiceImpl();
+    private final CategoryService categoryService = new CategoryServiceImpl();
 
     /**
      * 查询商品目录
@@ -33,6 +33,6 @@ public class CategoryServlet extends BaseServlet {
         // 1、调用service查询所有商品目录
         List<Category> list = categoryService.findAll();
         // 2、将list序列化为json，并返回
-        writeValue(list,response);
+        writeValue(list, response);
     }
 }

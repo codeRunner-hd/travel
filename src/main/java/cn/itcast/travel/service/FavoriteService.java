@@ -7,6 +7,7 @@ package cn.itcast.travel.service;
 public interface FavoriteService {
     /**
      * 根据线路rid和用户uid判断是否收藏
+     *
      * @param rid
      * @param uid
      * @return
@@ -15,6 +16,7 @@ public interface FavoriteService {
 
     /**
      * 根据线路rid和用户uid进行添加收藏操作
+     *
      * @param rid
      * @param uid
      */

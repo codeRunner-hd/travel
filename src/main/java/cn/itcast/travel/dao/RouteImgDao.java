@@ -12,6 +12,7 @@ public interface RouteImgDao {
 
     /**
      * 根据route对象中的id查询图片
+     *
      * @param rid
      * @return
      */

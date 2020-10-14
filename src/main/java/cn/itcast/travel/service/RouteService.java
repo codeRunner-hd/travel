@@ -19,6 +19,7 @@ public interface RouteService {
      * @param cid
      * @param currentPage
      * @param pageSize
+     * @param rname
      * @return
      */
     public PageBean<Route> pageQuery(int cid, int currentPage, int pageSize, String rname);
@@ -54,12 +55,14 @@ public interface RouteService {
 
     /**
      * 国内游
+     *
      * @return
      */
     public List<Route> inTravel();
 
     /**
      * 国内游、境外游
+     *
      * @return
      */
     public List<Route> outTravel();

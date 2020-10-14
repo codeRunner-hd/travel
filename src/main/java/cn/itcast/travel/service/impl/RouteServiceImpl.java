@@ -62,14 +62,14 @@ public class RouteServiceImpl implements RouteService {
         // 1.首先根据rid查询一个route对象
         Route route = routeDao.findOne(Integer.parseInt(rid));
         // 2.根据route对象中的id查询图片集合信息
-        List<RouteImg> routeImgList = routeImgDao.findByRid(route.getRid());
+        List<RouteImg> routeImgList = routeImgDao.findByRid(route.getRouteId());
         route.setRouteImgList(routeImgList);
         // 3.根据route对象中的sid查询商家详细信息
-        Seller seller = sellerDao.findBySid(route.getSid());
+        Seller seller = sellerDao.findBySid(route.getSaleId());
         route.setSeller(seller);
 
         // 4.查询收藏次数
-        int count = favoriteDao.findCountByRid(route.getRid());
+        int count = favoriteDao.findCountByRid(route.getRouteId());
         route.setCount(count);
 
         return route;
@@ -85,7 +85,7 @@ public class RouteServiceImpl implements RouteService {
         List<Route> fav_list = favoriteDao.findRids();
         List<Route> routes_list = new ArrayList<>();
         for (int i = 0; i < fav_list.size(); i++) {
-            Route route = favoriteDao.findByRid(fav_list.get(i).getRid());
+            Route route = favoriteDao.findByRid(fav_list.get(i).getRouteId());
             routes_list.add(route);
         }
         return routes_list;
@@ -98,10 +98,10 @@ public class RouteServiceImpl implements RouteService {
      */
     @Override
     public List<Route> newestTravel() {
-        List<Route> routes = routeDao.findByRdate();
+        List<Route> routes = routeDao.findRouteByDate();
         List<Route> routes_list = new ArrayList<>();
         for (int i = 0; i < routes.size(); i++) {
-            Route route = favoriteDao.findByRid(routes.get(i).getRid());
+            Route route = favoriteDao.findByRid(routes.get(i).getRouteId());
             routes_list.add(route);
         }
         return routes_list;
@@ -117,7 +117,7 @@ public class RouteServiceImpl implements RouteService {
         List<Route> routes = routeDao.findByTheme();
         List<Route> routes_list = new ArrayList<>();
         for (int i = 0; i < routes.size(); i++) {
-            Route route = favoriteDao.findByRid(routes.get(i).getRid());
+            Route route = favoriteDao.findByRid(routes.get(i).getRouteId());
             routes_list.add(route);
         }
         return routes_list;
@@ -132,10 +132,10 @@ public class RouteServiceImpl implements RouteService {
     public List<Route> inTravel() {
         String cname = "国内游";
         Category category = categoryDao.findByName(cname);
-        List<Route> routes = routeDao.findByCid(category.getCid());
+        List<Route> routes = routeDao.findByCid(category.getCategoryId());
         List<Route> routes_list = new ArrayList<>();
         for (int i = 0; i < routes.size(); i++) {
-            Route route = favoriteDao.findByRid(routes.get(i).getRid());
+            Route route = favoriteDao.findByRid(routes.get(i).getRouteId());
             routes_list.add(route);
         }
         return routes_list;
@@ -150,12 +150,12 @@ public class RouteServiceImpl implements RouteService {
     public List<Route> outTravel() {
         String cname = "出境游";
         Category category = categoryDao.findByName(cname);
-        List<Route> routes = routeDao.findByCid(category.getCid());
-        List<Route> routes_list = new ArrayList<>();
-        for (int i = 0; i < routes.size(); i++) {
-            Route route = favoriteDao.findByRid(routes.get(i).getRid());
-            routes_list.add(route);
+        List<Route> routes = routeDao.findByCid(category.getCategoryId());
+        List<Route> routesList = new ArrayList<>();
+        for (Route value : routes) {
+            Route route = favoriteDao.findByRid(value.getRouteId());
+            routesList.add(route);
         }
-        return routes_list;
+        return routesList;
     }
 }

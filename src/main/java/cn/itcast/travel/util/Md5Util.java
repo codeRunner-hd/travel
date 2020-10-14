@@ -67,8 +67,8 @@ public final class Md5Util {
      */
     public static void main(String[] args) throws Exception {
         String password = "123456";
-        String passwordMD5 = Md5Util.encodeByMd5(password);
+        String encodeByMd5 = Md5Util.encodeByMd5(password);
         System.out.println(password);
-        System.out.println(passwordMD5);
+        System.out.println(encodeByMd5);
     }
 }

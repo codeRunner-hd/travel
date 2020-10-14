@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class FavoriteDaoImpl implements FavoriteDao {
     DataSource dataSource;
-    private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
+    private final JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
 
     /**
      * 根据线路rid和用户uid判断是否收藏

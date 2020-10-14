@@ -26,9 +26,8 @@ public final class MailUtils {
      * @param to    收件人邮箱
      * @param text  邮件正文
      * @param title 邮件标题
-     * @return 发送结果
      */
-    public static boolean sendMail(String to, String text, String title) {
+    public static void sendMail(String to, String text, String title) {
         try {
             final Properties props = new Properties();
             props.put("mail.smtp.auth", "true");
@@ -69,11 +68,9 @@ public final class MailUtils {
             message.setContent(text, "text/html;charset=UTF-8");
             // 发送邮件
             Transport.send(message);
-            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
     }
 
     /**

@@ -70,6 +70,7 @@ public class JDBCUtils {
             try {
                 rs.close();
             } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
 
@@ -77,6 +78,7 @@ public class JDBCUtils {
             try {
                 stmt.close();
             } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
 
@@ -84,6 +86,7 @@ public class JDBCUtils {
             try {
                 conn.close();
             } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
     }

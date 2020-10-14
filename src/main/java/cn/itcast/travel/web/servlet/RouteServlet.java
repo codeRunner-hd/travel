@@ -22,8 +22,8 @@ import java.util.List;
  */
 @WebServlet("/route/*")
 public class RouteServlet extends BaseServlet {
-    private RouteService routeService = new RouteServiceImpl();
-    private FavoriteService favoriteService = new FavoriteServiceImpl();
+    private final RouteService routeService = new RouteServiceImpl();
+    private final FavoriteService favoriteService = new FavoriteServiceImpl();
 
     /**
      * 线路分页查询
@@ -50,7 +50,7 @@ public class RouteServlet extends BaseServlet {
         // 2.处理参数
         int cid, currentPage, pageSize = 0;
         // 若商品类别编号不为空，则进行强转
-        if (cidStr != null && cidStr.length() > 0 && !"".equals(cidStr)) {
+        if (cidStr != null && cidStr.length() > 0) {
             cid = Integer.parseInt(cidStr);
         } else {
             cid = 0;

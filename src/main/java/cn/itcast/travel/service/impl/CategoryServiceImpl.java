@@ -17,7 +17,7 @@ import java.util.Set;
  * @DateTime: 2020/4/28 21:12
  */
 public class CategoryServiceImpl implements CategoryService {
-    private CategoryDao categoryDao = new CategoryDaoImpl();
+    private final CategoryDao categoryDao = new CategoryDaoImpl();
 
     /**
      * 查询商品目录
@@ -42,7 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
             list = categoryDao.findAll();
             // 3.2、遍历集合，将集合数据存储到redis中 category的key中
             for (int i = 0; i < list.size(); i++) {
-                jedis.zadd("category", list.get(i).getCid(), list.get(i).getCname());
+                jedis.zadd("category", list.get(i).getCategoryId(), list.get(i).getCategoryName());
             }
         } else {
             // 若集合不为空，则从redis中查询
@@ -51,8 +51,8 @@ public class CategoryServiceImpl implements CategoryService {
             list = new ArrayList<Category>();
             for (Tuple tuple : categorys) {
                 Category category = new Category();
-                category.setCname(tuple.getElement());
-                category.setCid((int) tuple.getScore());
+                category.setCategoryName(tuple.getElement());
+                category.setCategoryId((int) tuple.getScore());
                 list.add(category);
             }
         }

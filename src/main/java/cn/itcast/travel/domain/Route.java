@@ -13,11 +13,11 @@ public class Route implements Serializable {
     /**
      * 线路id，必输
      */
-    private int rid;
+    private int routeId;
     /**
      * 线路名称，必输
      */
-    private String rname;
+    private String routeName;
     /**
      * 价格，必输
      */
@@ -29,11 +29,11 @@ public class Route implements Serializable {
     /**
      * 是否上架，必输，0代表没有上架，1代表是上架
      */
-    private String rflag;
+    private String routeFlag;
     /**
      * 上架时间
      */
-    private String rdate;
+    private String routeDate;
     /**
      * 是否主题旅游，必输，0代表不是，1代表是
      */
@@ -45,15 +45,15 @@ public class Route implements Serializable {
     /**
      * 所属分类，必输
      */
-    private int cid;
+    private int categoryId;
     /**
      * 缩略图
      */
-    private String rimage;
+    private String routeImage;
     /**
      * 所属商家
      */
-    private int sid;
+    private int saleId;
     /**
      * 抓取数据的来源id
      */
@@ -81,31 +81,31 @@ public class Route implements Serializable {
     /**
      * 有参构造方法
      *
-     * @param rid
-     * @param rname
+     * @param routeId
+     * @param routeName
      * @param price
      * @param routeIntroduce
-     * @param rflag
-     * @param rdate
+     * @param routeFlag
+     * @param routeDate
      * @param isThemeTour
      * @param count
-     * @param cid
-     * @param rimage
-     * @param sid
+     * @param categoryId
+     * @param routeImage
+     * @param saleId
      * @param sourceId
      */
-    public Route(int rid, String rname, double price, String routeIntroduce, String rflag, String rdate, String isThemeTour, int count, int cid, String rimage, int sid, String sourceId) {
-        this.rid = rid;
-        this.rname = rname;
+    public Route(int routeId, String routeName, double price, String routeIntroduce, String routeFlag, String routeDate, String isThemeTour, int count, int categoryId, String routeImage, int saleId, String sourceId) {
+        this.routeId = routeId;
+        this.routeName = routeName;
         this.price = price;
         this.routeIntroduce = routeIntroduce;
-        this.rflag = rflag;
-        this.rdate = rdate;
+        this.routeFlag = routeFlag;
+        this.routeDate = routeDate;
         this.isThemeTour = isThemeTour;
         this.count = count;
-        this.cid = cid;
-        this.rimage = rimage;
-        this.sid = sid;
+        this.categoryId = categoryId;
+        this.routeImage = routeImage;
+        this.saleId = saleId;
         this.sourceId = sourceId;
     }
 
@@ -141,20 +141,20 @@ public class Route implements Serializable {
         this.sourceId = sourceId;
     }
 
-    public int getRid() {
-        return rid;
+    public int getRouteId() {
+        return routeId;
     }
 
-    public void setRid(int rid) {
-        this.rid = rid;
+    public void setRouteId(int routeId) {
+        this.routeId = routeId;
     }
 
-    public String getRname() {
-        return rname;
+    public String getRouteName() {
+        return routeName;
     }
 
-    public void setRname(String rname) {
-        this.rname = rname;
+    public void setRouteName(String routeName) {
+        this.routeName = routeName;
     }
 
     public double getPrice() {
@@ -173,20 +173,20 @@ public class Route implements Serializable {
         this.routeIntroduce = routeIntroduce;
     }
 
-    public String getRflag() {
-        return rflag;
+    public String getRouteFlag() {
+        return routeFlag;
     }
 
-    public void setRflag(String rflag) {
-        this.rflag = rflag;
+    public void setRouteFlag(String routeFlag) {
+        this.routeFlag = routeFlag;
     }
 
-    public String getRdate() {
-        return rdate;
+    public String getRouteDate() {
+        return routeDate;
     }
 
-    public void setRdate(String rdate) {
-        this.rdate = rdate;
+    public void setRouteDate(String routeDate) {
+        this.routeDate = routeDate;
     }
 
     public String getIsThemeTour() {
@@ -205,27 +205,27 @@ public class Route implements Serializable {
         this.count = count;
     }
 
-    public int getCid() {
-        return cid;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCid(int cid) {
-        this.cid = cid;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public String getRimage() {
-        return rimage;
+    public String getRouteImage() {
+        return routeImage;
     }
 
-    public void setRimage(String rimage) {
-        this.rimage = rimage;
+    public void setRouteImage(String routeImage) {
+        this.routeImage = routeImage;
     }
 
-    public int getSid() {
-        return sid;
+    public int getSaleId() {
+        return saleId;
     }
 
-    public void setSid(int sid) {
-        this.sid = sid;
+    public void setSaleId(int saleId) {
+        this.saleId = saleId;
     }
 }
